@@ -1409,17 +1409,6 @@ meta {
   text-shadow: 4px 4px 0 #000, 8px 8px 0 #111;
 }
 
-.brutal-big-text h1 .mamba-anim {
-  display: inline-block;
-  font-size: 10vw;
-  letter-spacing: 0.2em;
-  color: #fff;
-  background: none;
-  -webkit-background-clip: initial;
-  -webkit-text-fill-color: initial;
-  background-clip: initial;
-}
-
 @keyframes mambaFadeIn {
   0% { opacity: 0; transform: translateY(40px) scale(0.8) skewX(-10deg); letter-spacing: 2em; }
   60% { opacity: 1; transform: translateY(-10px) scale(1.1) skewX(2deg); letter-spacing: 0.3em; }
