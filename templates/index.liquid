@@ -1,0 +1,508 @@
+<header class="main-header">
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a href="#" class="logo">GLADE</a>
+    </div>
+    <div class="navbar-center">
+      <span id="promo-text">ONLY MEMBERSHIP OFFERS GETS 20 PERCENT OFF</span>
+    </div>
+    <div class="navbar-right">
+      <ul class="nav-menu">
+        <li>
+          <a href="/pages/shop-all">SHOP</a>
+        </li>
+        <li><a href="#">ABOUT</a></li>
+        <li><a href="#">JOURNAL</a></li>
+      </ul>
+      <div class="nav-icons">
+        <a href="#" class="icon-link"><i class="fas fa-search"></i></a>
+        <a href="#" class="icon-link"><i class="fas fa-user"></i></a>
+        <a href="#" class="icon-link cart" id="cart-toggle">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div id="cart-drawer-overlay" class="cart-drawer-overlay" style="display:none;">
+  <div class="cart-drawer">
+    <div class="cart-drawer-header">
+      <span class="cart-drawer-title"><b id="cart-drawer-count">0</b> ITEMS IN YOUR BAG.</span>
+      <button class="cart-drawer-close" onclick="closeCartDrawer()">&times;</button>
+    </div>
+    <div id="cart-drawer-items"></div>
+    <div class="cart-drawer-footer">
+      <div class="cart-drawer-subtotal-row">
+        <div>
+          <div class="cart-drawer-subtitle">SHIPPING & TAXES</div>
+          <div class="cart-drawer-subtotal-label">SUBTOTAL</div>
+        </div>
+        <div>
+          <div class="cart-drawer-subtitle">CALCULATED AT CHECKOUT</div>
+          <div class="cart-drawer-subtotal-amount" id="cart-drawer-subtotal">₹0.00</div>
+        </div>
+      </div>
+      <button class="cart-drawer-checkout" onclick="window.location='/checkout'">PROCEED TO CHECKOUT</button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="main-content-wrapper">
+    <section class="hero-section">
+      <div class="hero-bg" id="hero-bg-1"></div>
+      <div class="hero-bg" id="hero-bg-2"></div>
+      <div class="hero-content-area">
+        <div class="hero-text-content">
+          <span class="hero-tag">OUTERWEAR</span>
+          <h1 class="hero-headline"><span>BETWEEN SEASONS</span></h1>
+          <p class="hero-subtext">
+            <span
+              >LAYER UP FOR CHANGING WEATHER WITH VERSATILE PIECES DESIGNED FOR ADAPTABILITY. PREMIUM MATERIALS MEET
+              CONSIDERED DESIGN.</span
+            >
+          </p>
+        </div>
+        <div class="hero-interactive-area">
+          <div class="image-thumbnails">
+            <div
+              class="thumb active"
+              data-headline="BETWEEN SEASONS"
+              data-subtext="LAYER UP FOR CHANGING WEATHER WITH VERSATILE PIECES DESIGNED FOR ADAPTABILITY. PREMIUM MATERIALS MEET CONSIDERED DESIGN."
+              style="position:relative;background-image: url('{{ 'IMG_7740-Enhanced-NR-min.jpg' | asset_url }}');"
+            >
+              <div style="position:absolute;top:0;left:0;width:100%;height:40%;background:linear-gradient(to bottom,rgba(0,0,0,0.6),rgba(0,0,0,0));z-index:1;"></div>
+            </div>
+            <div
+              class="thumb"
+              data-headline="CURATED GIFTS"
+              data-subtext="Find the perfect gift for any occasion from our specially selected collection."
+              style="position:relative;background-image: url('{{ 'IMG_7762-Enhanced-NR-min.jpg' | asset_url }}');"
+            >
+              <div style="position:absolute;top:0;left:0;width:100%;height:40%;background:linear-gradient(to bottom,rgba(0,0,0,0.6),rgba(0,0,0,0));z-index:1;"></div>
+            </div>
+            <div
+              class="thumb"
+              data-headline="JUST DROPPED"
+              data-subtext="Discover the latest arrivals and stay ahead of the trends with our new collection."
+              style="position:relative;background-image: url('{{ 'IMG_7788-Enhanced-NR-min.jpg' | asset_url }}');"
+            >
+              <div style="position:absolute;top:0;left:0;width:100%;height:40%;background:linear-gradient(to bottom,rgba(0,0,0,0.6),rgba(0,0,0,0));z-index:1;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="new-arrivals-section">
+      <div class="arrivals-container">
+        <div class="left-promo-column">
+          <div
+            class="promo-image-container"
+            style="background-image: url('{{ 'WhatsApp Image 2025-07-12 at 17.37.48.jpeg' | asset_url }}');"
+          >
+            <div class="sticky-text-content">
+              <a href="{{ collections.all.products.first.url }}" class="animated-btn"
+                ><span class="text">Shop Now</span
+                ><span class="arrow-wrapper">
+                  <svg
+                    class="arrow arrow-1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                  </svg>
+                  <svg
+                    class="arrow arrow-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                  </svg></span
+              ></a>
+              <h2 class="arrivals-headline">NEW ARRIVALS</h2>
+            </div>
+            <div class="promo-circle"></div>
+          </div>
+        </div>
+        <div class="right-product-grid brutal-text-block">
+          <div class="brutal-big-text">
+            <h1>
+              BLACK<br>
+              <span class="mamba-anim">MAMBA</span>
+            </h1>
+            <p>Feel the venom in you</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="new-arrivals-section best-sellers-section">
+      <div class="arrivals-container">
+        <div class="right-product-grid brutal-text-block bestseller-brutal-text">
+          <div class="brutal-big-text">
+            <h1>
+              BEST<br>
+              SELLERS
+            </h1>
+            <p>
+              Unmatched. Unstoppable.<br>
+              Shop the icons.
+            </p>
+          </div>
+        </div>
+        <div class="left-promo-column">
+          <div
+            class="promo-image-container"
+            style="position:relative; background-image: url('{{ 'WhatsApp Image 2025-07-12 at 17.38.24 (1).jpeg' | asset_url }}');"
+          >
+            <div style="position:absolute;top:0;left:0;width:100%;height:40%;background:linear-gradient(to bottom,rgba(0,0,0,0.6),rgba(0,0,0,0));z-index:1;"></div>
+            <div class="sticky-text-content" style="position:relative;z-index:2;">
+              <a href="{{ collections.all.products.first.url }}" class="animated-btn"
+                ><span class="text">Shop Now</span
+                ><span class="arrow-wrapper">
+                  <svg
+                    class="arrow arrow-1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                  </svg>
+                  <svg
+                    class="arrow arrow-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                  </svg></span
+              ></a>
+              <h2 class="arrivals-headline">BEST SELLERS</h2>
+            </div>
+            <div id="info-popup-1" class="info-popup">
+              <div
+                class="popup-image"
+                style="background-image: url('{{ 'motion-track-jacket_After.avif' | asset_url }}')"
+              ></div>
+              <div class="popup-info">
+                <span class="product-category">OUTERWEAR</span>
+                <h3 class="product-name">ELEMENTS TECH JACKET</h3>
+                <p class="product-price">₹225</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="instagram-section">
+      <div class="instagram-header">
+        <div class="header-text">
+          <h2>FOLLOW GLADE</h2>
+          <p>WEAR IT YOUR WAY. TAG US ON INSTAGRAM FOR YOUR CHANCE TO BE FEATURED.</p>
+        </div>
+        <a href="{{ collections.all.products.first.url }}" class="animated-btn">
+          <span class="text">Shop Now</span>
+          <span class="arrow-wrapper">
+            <svg
+              class="arrow arrow-1"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+            </svg>
+            <svg
+              class="arrow arrow-2"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+            </svg>
+          </span>
+        </a>
+      </div>
+      <div class="photo-marquee">
+  <div class="marquee-track">
+    <!-- Instagram post: https://www.instagram.com/p/DOQe0J9AbME/ -->
+    <img src="{{ 'instagram-post-DOQe0J9AbME.jpg' | asset_url }}" alt="Instagram post DOQe0J9AbME">
+    <!-- Instagram post: https://www.instagram.com/p/DOISjfcAXrf/ -->
+    <img src="{{ 'instagram-post-DOISjfcAXrf.jpg' | asset_url }}" alt="Instagram post DOISjfcAXrf">
+    <!-- Instagram post: https://www.instagram.com/p/DNiGEIKoiSu/ -->
+    <img src="{{ 'instagram-post-DNiGEIKoiSu.jpg' | asset_url }}" alt="Instagram post DNiGEIKoiSu">
+    <!-- Instagram post: https://www.instagram.com/p/DL46D3-pLRU/ -->
+    <img src="{{ 'instagram-post-DL46D3-pLRU.jpg' | asset_url }}" alt="Instagram post DL46D3-pLRU">
+    <!-- Instagram post: https://www.instagram.com/p/DL1uV42J0Lo/ -->
+    <img src="{{ 'instagram-post-DL1uV42J0Lo.jpg' | asset_url }}" alt="Instagram post DL1uV42J0Lo">
+    <!-- Instagram post: https://www.instagram.com/p/DOQe0J9AbME/ -->
+    <img src="{{ 'instagram-post-DOQe0J9AbME.jpg' | asset_url }}" alt="Instagram post DOQe0J9AbME">
+    <!-- Instagram post: https://www.instagram.com/p/DOISjfcAXrf/ -->
+    <img src="{{ 'instagram-post-DOISjfcAXrf.jpg' | asset_url }}" alt="Instagram post DOISjfcAXrf">
+    <!-- Instagram post: https://www.instagram.com/p/DNiGEIKoiSu/ -->
+    <img src="{{ 'instagram-post-DNiGEIKoiSu.jpg' | asset_url }}" alt="Instagram post DNiGEIKoiSu">
+    <!-- Instagram post: https://www.instagram.com/p/DL46D3-pLRU/ -->
+    <img src="{{ 'instagram-post-DL46D3-pLRU.jpg' | asset_url }}" alt="Instagram post DL46D3-pLRU">
+  </div>
+</div>
+</section>
+
+    <section class="journal-section">
+      <div class="journal-header">
+        <div class="journal-header-left">
+          <h2>FROM THE JOURNAL</h2>
+          <p>EXPLORING THE PRINCIPLES OF DESIGN AND HOW WE APPROACH EVERYDAY PIECES.</p>
+        </div>
+        <div class="journal-header-right">
+          <a href="#" class="animated-btn"
+            ><span class="text">VIEW ALL</span
+            ><span class="arrow-wrapper">
+              <svg
+                class="arrow arrow-1"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"></path>
+              </svg>
+              <svg
+                class="arrow arrow-2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"></path>
+              </svg></span
+          ></a>
+        </div>
+      </div>
+      <div class="journal-content">
+        <div class="journal-image-column">
+          <img src="{{ '8gqTSINX7hptd4ZpZhFcjP9JvhE-min.jpg' | asset_url }}" alt="Technical Wear">
+        </div>
+        <div class="journal-text-column">
+          <span>12/6/24</span>
+          <h3>THE EVOLUTION OF TECHNICAL WEAR</h3>
+          <p>
+            The landscape of technical apparel has shifted dramatically. What began as purely functional design has
+            transformed into something more considered - where performance meets architectural intention. This evolution
+            mirrors our own journey in creating garments that serve both purpose and form.
+          </p>
+          <a href="#" class="animated-btn"
+            ><span class="text">READ ENTRY</span
+            ><span class="arrow-wrapper">
+              <svg
+                class="arrow arrow-1"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"></path>
+              </svg>
+              <svg
+                class="arrow arrow-2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"></path>
+              </svg></span
+          ></a>
+        </div>
+      </div>
+    </section>
+
+  
+
+  </div>
+
+
+</main>
+
+<script>
+document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    const form = btn.closest('form');
+    const formData = new FormData(form);
+    fetch('/cart/add.js', {
+      method: 'POST',
+      body: formData
+    }).then(() => {
+      openCartDrawer();
+    });
+  });
+});
+</script>
+<footer class="main-footer-section">
+  <div class="footer-banner" style="background-image: url('{{ 'IMG_7761-Enhanced-NR-min.jpg' | asset_url }}');">
+    <div class="footer-banner-text">
+      <h2><span>MOVE YOUR WAY</span></h2>
+    </div>
+  </div>
+  <div class="footer-links-container">
+    <div class="footer-column">
+      <h5>CATEGORIES</h5>
+      <ul>
+        <li><a href="#">ALL</a></li>
+        <li><a href="#">TOPS</a></li>
+        <li><a href="#">BOTTOMS</a></li>
+        <li><a href="#">OUTERWEAR</a></li>
+        <li><a href="#">ACCESSORIES</a></li>
+        <li><a href="#">NEW ARRIVALS</a></li>
+        <li><a href="#">BEST SELLERS</a></li>
+        <li><a href="#">SALE</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h5>SUPPORT</h5>
+      <ul>
+        <li><a href="#">MY ACCOUNT</a></li>
+        <li><a href="#">PAYMENT METHODS</a></li>
+        <li><a href="#">RETURNS & REFUNDS</a></li>
+        <li><a href="#">SHIPPING & DELIVERY</a></li>
+        <li><a href="#">TERMS & CONDITIONS</a></li>
+        <li><a href="#">PRIVACY POLICY</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h5>ABOUT</h5>
+      <ul>
+        <li><a href="#">ABOUT GLADE</a></li>
+        <li><a href="#">JOURNAL</a></li>
+        <li><a href="#">CONTACT</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h5>SOCIAL MEDIA</h5>
+      <ul>
+        <li><a href="#">INSTAGRAM</a></li>
+        <li><a href="#">X / TWITTER</a></li>
+        <li><a href="#">YOUTUBE</a></li>
+        <li><a href="#">FACEBOOK</a></li>
+        <li><a href="#">TWITCH</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-subscribe-section">
+    <div class="subscribe-form-container">
+      <div class="subscribe-form">
+        <input type="email" placeholder="Your Email Address">
+        <button>SUBSCRIBE</button>
+      </div>
+      <div class="subscribe-agreement">
+        <input type="checkbox" id="privacy-agree">
+        <label for="privacy-agree">BY SUBSCRIBING YOU AGREE TO THE PRIVACY POLICY</label>
+      </div>
+    </div>
+    <div class="subscribe-links">
+      <a href="#">TERMS & CONDITIONS</a>
+      <a href="#">PRIVACY</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+if (typeof Shopify === 'undefined') Shopify = {};
+Shopify.formatMoney = Shopify.formatMoney || function(cents, format) {
+  if (typeof cents === 'string') {
+    cents = cents.replace('.', '');
+  }
+  var value = (cents / 100).toFixed(2);
+  var formattedValue = '₹' + value;
+  
+  // If a format string is provided, use it
+  if (typeof format !== 'undefined') {
+    return format.replace('{{amount}}', value).replace('{{amount_with_comma_separator}}', value.replace('.', ','));
+  }
+  
+  return formattedValue;
+};
+
+function openCartDrawer() {
+  document.getElementById('cart-drawer-overlay').style.display = 'flex';
+  fetchCartDrawer();
+}
+function closeCartDrawer() {
+  document.getElementById('cart-drawer-overlay').style.display = 'none';
+}
+function fetchCartDrawer() {
+  fetch('/cart.js')
+    .then(res => res.json())
+    .then(cart => {
+      document.getElementById('cart-drawer-count').textContent = cart.item_count;
+      var badge = document.querySelector('.cart-count');
+      if (badge) badge.textContent = cart.item_count;
+      document.getElementById('cart-drawer-subtotal').textContent = Shopify.formatMoney(cart.total_price);
+      let html = '';
+      if (cart.items.length === 0) {
+        html = '<div style="padding:32px;color:#888;">Your bag is empty.</div>';
+      } else {
+        cart.items.forEach(item => {
+          var img = item.image ? (item.image.startsWith('http') ? item.image : 'https:' + item.image) : '';
+          html += `
+            <div class="cart-drawer-item">
+              <img src="${img}" class="cart-drawer-item-img" alt="${item.title}">
+              <div class="cart-drawer-item-info">
+                <div class="cart-drawer-item-title">${item.product_title}</div>
+                <div class="cart-drawer-item-variant">${item.variant_title ? item.variant_title : ''}</div>
+                <div class="cart-drawer-item-price">${Shopify.formatMoney(item.final_line_price)}</div>
+                <div class="cart-drawer-qty-row">
+                  <button class="cart-drawer-qty-btn" onclick="updateCartQty(${item.id}, ${item.quantity-1})">-</button>
+                  <span>${item.quantity}</span>
+                  <button class="cart-drawer-qty-btn" onclick="updateCartQty(${item.id}, ${item.quantity+1})">+</button>
+                  <button class="cart-drawer-remove" onclick="updateCartQty(${item.id}, 0)">&times;</button>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      }
+      document.getElementById('cart-drawer-items').innerHTML = html;
+    })
+    .catch(error => {
+      console.error('Error fetching cart data:', error);
+      // Optionally show error message to user
+      document.getElementById('cart-drawer-items').innerHTML = '<div style="padding:32px;color:#888;">Error loading cart items.</div>';
+    });
+}
+function updateCartQty(id, qty) {
+  fetch('/cart/change.js', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({id, quantity: qty})
+  }).then(() => fetchCartDrawer())
+  .catch(error => {
+    console.error('Error updating cart quantity:', error);
+    // Optionally show error message to user
+  });
+}
+// Make cart icon open the drawer
+var cartIcon = document.querySelector('.icon-link.cart');
+if(cartIcon) cartIcon.setAttribute('onclick', 'openCartDrawer()');
+</script>

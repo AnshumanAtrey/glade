@@ -1,0 +1,144 @@
+<div class="blog-index">
+  <header class="blog-header">
+    <h1 class="blog-title">{{ blog.title }}</h1>
+    <p class="blog-description">{{ blog.description }}</p>
+  </header>
+
+  {% paginate blog.articles by 10 %}
+    <div class="blog-articles">
+      {% for article in blog.articles %}
+        <article class="blog-post-preview">
+          <h2 class="post-title">
+            <a href="{{ article.url }}">{{ article.title }}</a>
+          </h2>
+          
+          <div class="post-meta">
+            <span class="post-author">By {{ article.author }}</span>
+            <time class="post-date" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+              {{ article.published_at | date: format: 'month_day_year' }}
+            </time>
+          </div>
+          
+          {% if article.excerpt != blank %}
+            <div class="post-excerpt rte">
+              {{ article.excerpt }}
+            </div>
+          {% else %}
+            <div class="post-excerpt rte">
+              <p>{{ article.content | strip_html | truncatewords: 30 }}</p>
+            </div>
+          {% endif %}
+          
+          <a href="{{ article.url }}" class="read-more">Read More</a>
+        </article>
+      {% endfor %}
+    </div>
+
+    {% if paginate.pages > 1 %}
+      <div class="pagination">
+        {{ paginate | default_pagination }}
+      </div>
+    {% endif %}
+  {% endpaginate %}
+</div>
+
+<style>
+  .blog-index {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .blog-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .blog-title {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+
+  .blog-description {
+    font-size: 1.2rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .blog-articles {
+    margin-bottom: 40px;
+  }
+
+  .blog-post-preview {
+    margin-bottom: 50px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .blog-post-preview:last-child {
+    border-bottom: none;
+  }
+
+  .post-title {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  .post-title a {
+    text-decoration: none;
+    color: #000;
+  }
+
+  .post-title a:hover {
+    text-decoration: underline;
+  }
+
+  .post-meta {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+  }
+
+  .post-author {
+    margin-right: 15px;
+  }
+
+  .post-excerpt {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .read-more {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #000;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+  }
+
+  .read-more:hover {
+    background-color: #333;
+  }
+
+  .pagination {
+    text-align: center;
+  }
+
+  .pagination a, .pagination .page.current {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 5px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+  }
+
+  .pagination .page.current {
+    background-color: #000;
+    color: white;
+  }
+</style>

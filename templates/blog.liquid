@@ -1,0 +1,175 @@
+{% assign number_of_comments = article.comments_count %}
+{% if comment and comment.status != 'published' %}
+  {% assign number_of_comments = article.comments_count | plus: 1 %}
+{% endif %}
+
+<article class="blog-article" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="article-header">
+    <h1 class="article-title" itemprop="headline">{{ article.title }}</h1>
+    <div class="article-meta">
+      <span class="article-author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">{{ article.author }}</span>
+      </span>
+      <time class="article-date" datetime="{{ article.published_at | date: '%Y-%m-%d' }}" itemprop="datePublished">
+        {{ article.published_at | date: format: 'month_day_year' }}
+      </time>
+    </div>
+  </header>
+
+  <div class="article-content rte" itemprop="articleBody">
+    {{ article.content }}
+  </div>
+
+  {% if blog.comments_enabled? and article.comments_count > 0 %}
+    <div class="article-comments">
+      <h3>{{ number_of_comments }} comment{% if number_of_comments > 1 %}s{% endif %}</h3>
+      
+      {% paginate article.comments by 5 %}
+        {% for comment in article.comments %}
+          <div class="comment" id="comment-{{ comment.id }}">
+            <div class="comment-meta">
+              <strong>{{ comment.author }}</strong>
+              <time datetime="{{ comment.created_at | date: '%Y-%m-%d' }}">
+                {{ comment.created_at | date: format: 'month_day_year' }}
+              </time>
+            </div>
+            <div class="comment-content">
+              {{ comment.content }}
+            </div>
+          </div>
+        {% endfor %}
+
+        {% if paginate.pages > 1 %}
+          {{ paginate | default_pagination }}
+        {% endif %}
+      {% endpaginate %}
+    </div>
+  {% endif %}
+
+  {% if blog.comments_enabled? %}
+    <div class="article-comment-form">
+      {% form 'new_comment', article %}
+        <h3>Leave a comment</h3>
+
+        {{ form.errors | default_errors }}
+
+        <label for="CommentAuthor">Name</label>
+        <input type="text" name="comment[author]" id="CommentAuthor" placeholder="Your name" value="{{ form.author }}" autocapitalize="words">
+
+        <label for="CommentEmail">Email</label>
+        <input type="email" name="comment[email]" id="CommentEmail" placeholder="your@email.com" value="{{ form.email }}" autocorrect="off" autocapitalize="off">
+
+        <label for="CommentBody">Message</label>
+        <textarea name="comment[body]" id="CommentBody" placeholder="Your comment">{{ form.body }}</textarea>
+
+        <input type="submit" value="Post Comment">
+      {% endform %}
+    </div>
+  {% endif %}
+</article>
+
+<style>
+  .blog-article {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .article-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .article-title {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  .article-meta {
+    color: #666;
+    font-size: 1rem;
+  }
+
+  .article-content {
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+
+  .article-content h2 {
+    font-size: 1.8rem;
+    margin: 2rem 0 1rem;
+  }
+
+  .article-content p {
+    margin-bottom: 1.5rem;
+  }
+
+  .article-content ul, .article-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+  }
+
+  .article-content li {
+    margin-bottom: 0.5rem;
+  }
+
+  .article-comments {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid #eee;
+  }
+
+  .comment {
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .comment:last-child {
+    border-bottom: none;
+  }
+
+  .comment-meta {
+    margin-bottom: 10px;
+  }
+
+  .comment-meta strong {
+    margin-right: 10px;
+  }
+
+  .article-comment-form {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid #eee;
+  }
+
+  .article-comment-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .article-comment-form input,
+  .article-comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .article-comment-form textarea {
+    height: 150px;
+  }
+
+  .article-comment-form input[type="submit"] {
+    width: auto;
+    background-color: #000;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+  }
+</style>
