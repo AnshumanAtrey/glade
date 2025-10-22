@@ -49,6 +49,15 @@ body {
     color: #fff;
     text-decoration: none;
     letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    height: 40px;
+    width: auto;
+    max-width: 120px;
+    object-fit: contain;
 }
 
 /* Center Section */
