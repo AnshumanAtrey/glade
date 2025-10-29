@@ -1,13 +1,143 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  {{ content_for_header }}
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <script src="https://unpkg.com/lenis@1.3.4/dist/lenis.min.js"></script>
-  {{ 'style.css' | asset_url | stylesheet_tag }}
-  {{ 'script.js' | asset_url | script_tag }}
-</head>
-<body>
-  {{ content_for_layout }}
-</body>
-</html> 
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {% render 'meta-tags' %}
+
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    
+    <!-- Carousel JavaScript -->
+    <script src="{{ 'carousel.js' | asset_url }}" defer="defer"></script>
+    
+    <!-- Instagram JavaScript -->
+    <script src="{{ 'instagram.js' | asset_url }}" defer="defer"></script>
+    
+    <!-- Journal JavaScript -->
+    <script src="{{ 'journal.js' | asset_url }}" defer="defer"></script>
+    
+    <!-- Footer JavaScript -->
+    <script src="{{ 'footer.js' | asset_url }}" defer="defer"></script>
+
+    <!-- GSAP Animation Library -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+
+    <!-- Mona Sans Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Carousel Styles -->
+    {{ 'carousel.css' | asset_url | stylesheet_tag }}
+    
+    <!-- Instagram Styles -->
+    {{ 'instagram.css' | asset_url | stylesheet_tag }}
+    
+    <!-- Journal Styles -->
+    {{ 'journal.css' | asset_url | stylesheet_tag }}
+    
+    <!-- Footer Styles -->
+    {{ 'footer.css' | asset_url | stylesheet_tag }}
+
+    <!-- Base Styles -->
+    <style>
+      :root {
+        --font-sans: 'Mona Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: var(--font-sans);
+      }
+
+      body {
+        font-family: var(--font-sans);
+        background-color: #000;
+        padding-top: 60px;
+        overflow-x: hidden;
+      }
+
+      .main-content-wrapper {
+        position: relative;
+        z-index: 5;
+        background-color: #000;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding-top: 50px;
+        }
+      }
+    </style>
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="gradient">
+    <a class="skip-to-content-link" href="#MainContent" style="position: absolute; left: -9999px; top: -9999px;">
+      {{ 'accessibility.skip_to_text' | t }}
+    </a>
+
+    {% section 'header' %}
+
+    <main id="MainContent" class="content-for-layout focus-none main-content-wrapper" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    <ul hidden>
+      <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
+      <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>
+    </ul>
+
+    <script>
+      window.shopUrl = '{{ request.origin }}';
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}',
+      };
+
+      window.cartStrings = {
+        error: `{{ 'sections.cart.cart_error' | t }}`,
+        quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`,
+      };
+
+      window.variantStrings = {
+        addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+        soldOut: `{{ 'products.product.sold_out' | t }}`,
+        unavailable: `{{ 'products.product.unavailable' | t }}`,
+        unavailable_with_option: `{{ 'products.product.value_unavailable' | t: option_value: '[value]' }}`,
+      };
+    </script>
+  </body>
+</html>

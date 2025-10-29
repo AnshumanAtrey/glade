@@ -1,0 +1,230 @@
+{% comment %}
+  Carousel Section - Editable product showcase with smooth transitions
+{% endcomment %}
+
+<section class="carousel-section" id="carousel-{{ section.id }}">
+  <div class="carousel-container">
+    <div class="carousel-header">
+      <div class="carousel-header-left">
+        <h2>{{ section.settings.carousel_title | default: 'FEATURED PRODUCTS' }}</h2>
+        <p>{{ section.settings.carousel_subtitle | default: 'Discover our curated selection of premium pieces.' }}</p>
+      </div>
+      <div class="carousel-header-right">
+        <div class="carousel-controls">
+          <button class="carousel-btn carousel-prev" aria-label="Previous slide">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+          <button class="carousel-btn carousel-next" aria-label="Next slide">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+        </div>
+        {% if section.settings.view_all_url != blank %}
+          <a href="{{ section.settings.view_all_url }}" class="animated-btn">
+            <span class="text">VIEW ALL</span>
+            <span class="arrow-wrapper">
+              <svg class="arrow arrow-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+              </svg>
+              <svg class="arrow arrow-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+              </svg>
+            </span>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="carousel-wrapper">
+      <div class="carousel-track" id="carousel-track-{{ section.id }}">
+        {% if section.settings.collection != blank %}
+          {% assign collection = collections[section.settings.collection] %}
+          {% if collection.products.size > 0 %}
+            {% for product in collection.products limit: section.settings.products_limit %}
+            <div class="carousel-slide">
+              <div class="carousel-product-card">
+                <div class="carousel-product-image" 
+                     style="background-image: url('{{ product.featured_image | image_url: width: 600 }}');"
+                     data-hover-image="{% if product.images[1] %}{{ product.images[1] | image_url: width: 600 }}{% endif %}">
+                  {% if product.compare_at_price > product.price %}
+                    <span class="product-tag">SALE</span>
+                  {% else %}
+                    <span class="product-tag">NEW</span>
+                  {% endif %}
+                  
+                  <div class="carousel-product-overlay">
+                    <a href="{{ product.url }}" class="animated-btn">
+                      <span class="text">SHOP NOW</span>
+                      <span class="arrow-wrapper">
+                        <svg class="arrow arrow-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                        </svg>
+                        <svg class="arrow arrow-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                        </svg>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                
+                <div class="carousel-product-info">
+                  <span class="product-category">{{ product.type | upcase }}</span>
+                  <h3 class="product-name">{{ product.title }}</h3>
+                  <div class="product-price">
+                    {% if product.compare_at_price > product.price %}
+                      <span class="price-sale">{{ product.price | money }}</span>
+                      <span class="price-compare">{{ product.compare_at_price | money }}</span>
+                    {% else %}
+                      <span class="price-regular">{{ product.price | money }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          {% else %}
+            {% comment %} No products in collection, show fallback {% endcomment %}
+            {% for i in (1..6) %}
+              <div class="carousel-slide">
+                <div class="carousel-product-card">
+                  <div class="carousel-product-image" style="background-color: #333; display: flex; align-items: center; justify-content: center;">
+                    <span style="color: #666; font-size: 14px;">No Image</span>
+                    <div class="carousel-product-overlay">
+                      <a href="#" class="animated-btn">
+                        <span class="text">SHOP NOW</span>
+                        <span class="arrow-wrapper">
+                          <svg class="arrow arrow-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                          </svg>
+                          <svg class="arrow arrow-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                          </svg>
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div class="carousel-product-info">
+                    <span class="product-category">SAMPLE</span>
+                    <h3 class="product-name">Sample Product {{ i }}</h3>
+                    <div class="product-price">
+                      <span class="price-regular">₹225</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% else %}
+          {% comment %} Fallback content for theme editor {% endcomment %}
+          {% for i in (1..6) %}
+            <div class="carousel-slide">
+              <div class="carousel-product-card">
+                <div class="carousel-product-image" style="background-image: url('{{ 'product-' | append: i | append: '.jpg' | asset_url }}');">
+                  <span class="product-tag">NEW</span>
+                  <div class="carousel-product-overlay">
+                    <a href="#" class="animated-btn">
+                      <span class="text">SHOP NOW</span>
+                      <span class="arrow-wrapper">
+                        <svg class="arrow arrow-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                        </svg>
+                        <svg class="arrow arrow-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                        </svg>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                
+                <div class="carousel-product-info">
+                  <span class="product-category">OUTERWEAR</span>
+                  <h3 class="product-name">Sample Product {{ i }}</h3>
+                  <div class="product-price">
+                    <span class="price-regular">₹225</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="carousel-indicators">
+      {% assign total_slides = section.settings.products_limit | default: 6 %}
+      {% assign slides_per_view = 3 %}
+      {% assign total_pages = total_slides | divided_by: slides_per_view | ceil %}
+      
+      {% for i in (1..total_pages) %}
+        <button class="carousel-indicator {% if forloop.first %}active{% endif %}" 
+                data-slide="{{ forloop.index0 | times: slides_per_view }}"
+                aria-label="Go to slide group {{ forloop.index }}"></button>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carousel",
+  "tag": "section",
+  "class": "section-carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "carousel_title",
+      "label": "Section Title",
+      "default": "FEATURED PRODUCTS"
+    },
+    {
+      "type": "textarea",
+      "id": "carousel_subtitle",
+      "label": "Section Subtitle",
+      "default": "Discover our curated selection of premium pieces."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Number of products",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "View All Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Enable Autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay Speed (seconds)",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carousel"
+    }
+  ]
+}
+{% endschema %}

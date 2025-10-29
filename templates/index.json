@@ -1,0 +1,228 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "hero_tag": "OUTERWEAR",
+        "hero_headline": "BETWEEN SEASONS",
+        "hero_subtext": "LAYER UP FOR CHANGING WEATHER WITH VERSATILE PIECES DESIGNED FOR ADAPTABILITY. PREMIUM MATERIALS MEET CONSIDERED DESIGN."
+      },
+      "blocks": {
+        "slide_1": {
+          "type": "hero_slide",
+          "settings": {
+            "headline": "BETWEEN SEASONS",
+            "subtext": "LAYER UP FOR CHANGING WEATHER WITH VERSATILE PIECES DESIGNED FOR ADAPTABILITY. PREMIUM MATERIALS MEET CONSIDERED DESIGN."
+          }
+        },
+        "slide_2": {
+          "type": "hero_slide",
+          "settings": {
+            "headline": "CURATED GIFTS",
+            "subtext": "Find the perfect gift for any occasion from our specially selected collection."
+          }
+        },
+        "slide_3": {
+          "type": "hero_slide",
+          "settings": {
+            "headline": "JUST DROPPED",
+            "subtext": "Discover the latest arrivals and stay ahead of the trends with our new collection."
+          }
+        }
+      },
+      "block_order": [
+        "slide_1",
+        "slide_2",
+        "slide_3"
+      ]
+    },
+    "new_arrivals": {
+      "type": "new-arrivals",
+      "settings": {
+        "layout": "image_left",
+        "is_best_sellers": false,
+        "headline": "NEW ARRIVALS",
+        "brutal_headline": "BLACK MAMBA",
+        "brutal_subtext": "Feel the venom in you",
+        "button_text": "Shop Now",
+        "button_link": "/collections/new-arrivals"
+      }
+    },
+    "carousel": {
+      "type": "carousel",
+      "settings": {
+        "carousel_title": "FEATURED PRODUCTS",
+        "carousel_subtitle": "Discover our curated selection of premium pieces designed for the modern lifestyle.",
+        "collection": "",
+        "products_limit": 6,
+        "view_all_url": "/collections/all",
+        "enable_autoplay": true,
+        "autoplay_speed": 5
+      }
+    },
+    "instagram": {
+      "type": "instagram",
+      "settings": {
+        "instagram_title": "FOLLOW GLADE",
+        "instagram_subtitle": "WEAR IT YOUR WAY. TAG US ON INSTAGRAM FOR YOUR CHANCE TO BE FEATURED.",
+        "cta_text": "Shop Now",
+        "cta_url": "/collections/all",
+        "enable_autoplay": true,
+        "scroll_speed": 20
+      },
+      "blocks": {
+        "instagram_1": {
+          "type": "instagram_image",
+          "settings": {
+            "alt_text": "Glade lifestyle photo 1"
+          }
+        },
+        "instagram_2": {
+          "type": "instagram_image",
+          "settings": {
+            "alt_text": "Glade lifestyle photo 2"
+          }
+        },
+        "instagram_3": {
+          "type": "instagram_image",
+          "settings": {
+            "alt_text": "Glade lifestyle photo 3"
+          }
+        },
+        "instagram_4": {
+          "type": "instagram_image",
+          "settings": {
+            "alt_text": "Glade lifestyle photo 4"
+          }
+        },
+        "instagram_5": {
+          "type": "instagram_image",
+          "settings": {
+            "alt_text": "Glade lifestyle photo 5"
+          }
+        },
+        "instagram_6": {
+          "type": "instagram_image",
+          "settings": {
+            "alt_text": "Glade lifestyle photo 6"
+          }
+        },
+        "instagram_7": {
+          "type": "instagram_image",
+          "settings": {
+            "alt_text": "Glade lifestyle photo 7"
+          }
+        },
+        "instagram_8": {
+          "type": "instagram_image",
+          "settings": {
+            "alt_text": "Glade lifestyle photo 8"
+          }
+        },
+        "instagram_9": {
+          "type": "instagram_image",
+          "settings": {
+            "alt_text": "Glade lifestyle photo 9"
+          }
+        }
+      },
+      "block_order": [
+        "instagram_1",
+        "instagram_2",
+        "instagram_3",
+        "instagram_4",
+        "instagram_5",
+        "instagram_6",
+        "instagram_7",
+        "instagram_8",
+        "instagram_9"
+      ]
+    },
+    "best_sellers": {
+      "type": "new-arrivals",
+      "settings": {
+        "layout": "image_right",
+        "is_best_sellers": true,
+        "headline": "BEST SELLERS",
+        "brutal_headline": "BEST SELLERS",
+        "brutal_subtext": "Unmatched. Unstoppable.<br>Shop the icons.",
+        "button_text": "Shop Now",
+        "button_link": "/collections/best-sellers"
+      }
+    },
+    "journal": {
+      "type": "journal",
+      "settings": {
+        "journal_title": "FROM THE JOURNAL",
+        "journal_subtitle": "EXPLORING THE PRINCIPLES OF DESIGN AND HOW WE APPROACH EVERYDAY PIECES.",
+        "view_all_text": "VIEW ALL",
+        "view_all_url": "/blogs/journal",
+        "article_date": "12/6/24",
+        "article_title": "THE EVOLUTION OF TECHNICAL WEAR",
+        "article_excerpt": "The landscape of technical apparel has shifted dramatically. What began as purely functional design has transformed into something more considered - where performance meets architectural intention. This evolution mirrors our own journey in creating garments that serve both purpose and form.",
+        "read_more_text": "READ ENTRY",
+        "article_url": "/blogs/journal/evolution-of-technical-wear"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "banner_text": "MOVE YOUR WAY",
+        "newsletter_placeholder": "Your Email Address",
+        "newsletter_button_text": "SUBSCRIBE",
+        "privacy_text": "BY SUBSCRIBING YOU AGREE TO THE PRIVACY POLICY",
+        "terms_text": "TERMS & CONDITIONS",
+        "terms_url": "/pages/terms-and-conditions",
+        "privacy_text_link": "PRIVACY",
+        "privacy_url": "/pages/privacy-policy"
+      },
+      "blocks": {
+        "footer_1": {
+          "type": "footer_column",
+          "settings": {
+            "column_title": "SUPPORT",
+            "link_text_1": "MY ACCOUNT",
+            "link_text_2": "SHIPPING",
+            "link_1": "",
+            "link_2": "https://merchant.razorpay.com/policy/RYUROJGGYGnF5k/shipping",
+            "link_text_3": "TERMS AND CONDITIONS",
+            "link_3": "https://merchant.razorpay.com/policy/RYUROJGGYGnF5k/terms",
+            "link_text_4": "CANCELLATION & REFUNDS",
+            "link_4": "https://merchant.razorpay.com/policy/RYUROJGGYGnF5k/refund"
+          }
+        },
+        "footer_2": {
+          "type": "footer_column",
+          "settings": {
+            "column_title": "ABOUT",
+            "link_text_1": "ABOUT GLADE",
+            "link_text_2": "CONTACT"
+          }
+        },
+        "footer_3": {
+          "type": "footer_column",
+          "settings": {
+            "column_title": "SOCIAL MEDIA",
+            "link_text_1": "INSTAGRAM",
+            "link_text_2": "X / TWITTER",
+            "link_text_3": "YOUTUBE"
+          }
+        }
+      },
+      "block_order": [
+        "footer_1",
+        "footer_2",
+        "footer_3"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "new_arrivals",
+    "best_sellers",
+    "carousel",
+    "instagram",
+    "journal",
+    "footer"
+  ]
+}

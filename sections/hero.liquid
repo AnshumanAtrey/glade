@@ -1,0 +1,118 @@
+{{ 'hero.css' | asset_url | stylesheet_tag }}
+{{ 'hero.js' | asset_url | script_tag }}
+
+<section class="hero-section">
+  <div class="hero-bg" id="hero-bg-1"></div>
+  <div class="hero-bg" id="hero-bg-2"></div>
+  
+  <div class="hero-content-area">
+    <div class="hero-text-content">
+      <span class="hero-tag">{{ section.settings.hero_tag | default: 'OUTERWEAR' }}</span>
+      <h1 class="hero-headline">{{ section.settings.hero_headline | default: 'BETWEEN SEASONS' }}</h1>
+      <p class="hero-subtext">{{ section.settings.hero_subtext | default: 'LAYER UP FOR CHANGING WEATHER WITH VERSATILE PIECES DESIGNED FOR ADAPTABILITY. PREMIUM MATERIALS MEET CONSIDERED DESIGN.' }}</p>
+    </div>
+    
+    <div class="hero-interactive-area">
+      <div class="image-thumbnails">
+        {% assign hero_images = 'hero-1.jpg,hero-2.jpg,hero-3.jpg' | split: ',' %}
+        {% for block in section.blocks %}
+          {% if block.type == 'hero_slide' %}
+            {% assign fallback_image = hero_images[forloop.index0] | asset_url %}
+            {% assign slide_image = block.settings.image | default: fallback_image %}
+            <div 
+              class="thumb{% if forloop.first %} active{% endif %}"
+              data-tag="{{ block.settings.tag | default: 'OUTERWEAR' }}"
+              data-headline="{{ block.settings.headline }}"
+              data-subtext="{{ block.settings.subtext }}"
+              style="background-image: url('{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 1200 }}{% else %}{{ fallback_image }}{% endif %}');"
+            >
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "hero_tag",
+      "label": "Hero Tag",
+      "default": "OUTERWEAR"
+    },
+    {
+      "type": "text",
+      "id": "hero_headline",
+      "label": "Hero Headline",
+      "default": "BETWEEN SEASONS"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subtext",
+      "label": "Hero Subtext",
+      "default": "LAYER UP FOR CHANGING WEATHER WITH VERSATILE PIECES DESIGNED FOR ADAPTABILITY. PREMIUM MATERIALS MEET CONSIDERED DESIGN."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hero_slide",
+      "name": "Hero Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Slide Image"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag",
+          "default": "OUTERWEAR"
+        },
+        {
+          "type": "text",
+          "id": "headline",
+          "label": "Headline"
+        },
+        {
+          "type": "textarea",
+          "id": "subtext",
+          "label": "Subtext"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Section",
+      "blocks": [
+        {
+          "type": "hero_slide",
+          "settings": {
+            "headline": "BETWEEN SEASONS",
+            "subtext": "LAYER UP FOR CHANGING WEATHER WITH VERSATILE PIECES DESIGNED FOR ADAPTABILITY. PREMIUM MATERIALS MEET CONSIDERED DESIGN."
+          }
+        },
+        {
+          "type": "hero_slide",
+          "settings": {
+            "headline": "CURATED GIFTS",
+            "subtext": "Find the perfect gift for any occasion from our specially selected collection."
+          }
+        },
+        {
+          "type": "hero_slide",
+          "settings": {
+            "headline": "JUST DROPPED",
+            "subtext": "Discover the latest arrivals and stay ahead of the trends with our new collection."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

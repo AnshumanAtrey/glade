@@ -1,0 +1,144 @@
+{{ 'new-arrivals.css' | asset_url | stylesheet_tag }}
+{{ 'new-arrivals.js' | asset_url | script_tag }}
+
+<section class="new-arrivals-section{% if section.settings.is_best_sellers %} best-sellers-section{% endif %}">
+  <div class="arrivals-container">
+    {% if section.settings.layout == 'image_left' %}
+      <!-- Image Left Layout -->
+      <div class="left-promo-column">
+        <div class="promo-image-container" style="background-image: url('{% if section.settings.promo_image != blank %}{{ section.settings.promo_image | image_url: width: 800 }}{% else %}{{ 'new-arrivals-1.jpg' | asset_url }}{% endif %}');">
+          <div class="sticky-text-content">
+            {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+              <a href="{{ section.settings.button_link }}" class="animated-btn">
+                <span class="text">{{ section.settings.button_text }}</span>
+                <span class="arrow-wrapper">
+                  <svg class="arrow arrow-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                  </svg>
+                  <svg class="arrow arrow-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                  </svg>
+                </span>
+              </a>
+            {% endif %}
+            <h2 class="arrivals-headline">{{ section.settings.headline | default: 'NEW ARRIVALS' }}</h2>
+          </div>
+          <div class="promo-circle"></div>
+        </div>
+      </div>
+      
+      <div class="right-product-grid brutal-text-block{% if section.settings.is_best_sellers %} bestseller-brutal-text{% endif %}">
+        <div class="brutal-big-text">
+          <h1>{{ section.settings.brutal_headline | default: 'BLACK MAMBA' | replace: ' ', '<br>' }}</h1>
+          <p>{{ section.settings.brutal_subtext | default: 'Feel the venom in you' }}</p>
+        </div>
+      </div>
+    {% else %}
+      <!-- Image Right Layout -->
+      <div class="right-product-grid brutal-text-block{% if section.settings.is_best_sellers %} bestseller-brutal-text{% endif %}">
+        <div class="brutal-big-text">
+          <h1>{{ section.settings.brutal_headline | default: 'BEST SELLERS' | replace: ' ', '<br>' }}</h1>
+          <p>{{ section.settings.brutal_subtext | default: 'Unmatched. Unstoppable.<br>Shop the icons.' }}</p>
+        </div>
+      </div>
+      
+      <div class="left-promo-column">
+        <div class="promo-image-container" style="background-image: url('{% if section.settings.promo_image != blank %}{{ section.settings.promo_image | image_url: width: 800 }}{% else %}{{ 'new-arrivals-2.jpg' | asset_url }}{% endif %}');">
+          <div style="position:absolute;top:0;left:0;width:100%;height:40%;background:linear-gradient(to bottom,rgba(0,0,0,0.6),rgba(0,0,0,0));z-index:1;"></div>
+          <div class="sticky-text-content" style="position:relative;z-index:2;">
+            {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+              <a href="{{ section.settings.button_link }}" class="animated-btn">
+                <span class="text">{{ section.settings.button_text }}</span>
+                <span class="arrow-wrapper">
+                  <svg class="arrow arrow-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                  </svg>
+                  <svg class="arrow arrow-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                  </svg>
+                </span>
+              </a>
+            {% endif %}
+            <h2 class="arrivals-headline">{{ section.settings.headline | default: 'BEST SELLERS' }}</h2>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "New Arrivals Section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "image_left",
+          "label": "Image Left, Text Right"
+        },
+        {
+          "value": "image_right",
+          "label": "Text Left, Image Right"
+        }
+      ],
+      "default": "image_left"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_best_sellers",
+      "label": "Is Best Sellers Section",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "promo_image",
+      "label": "Promo Image"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Section Headline",
+      "default": "NEW ARRIVALS"
+    },
+    {
+      "type": "text",
+      "id": "brutal_headline",
+      "label": "Large Text Headline",
+      "default": "BLACK MAMBA"
+    },
+    {
+      "type": "textarea",
+      "id": "brutal_subtext",
+      "label": "Large Text Subtext",
+      "default": "Feel the venom in you"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "New Arrivals Section",
+      "settings": {
+        "layout": "image_left",
+        "headline": "NEW ARRIVALS",
+        "brutal_headline": "BLACK MAMBA",
+        "brutal_subtext": "Feel the venom in you",
+        "button_text": "Shop Now"
+      }
+    }
+  ]
+}
+{% endschema %}

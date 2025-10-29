@@ -1,73 +1,304 @@
-<header class="main-header">
-    <nav class="navbar">
-        <div class="navbar-left">
-            <a href="/" class="logo">GLADE</a>
-        </div>
-        <div class="navbar-center">
-            <span id="promo-text">FREE RETURNS WITHIN 30 DAYS</span>
-        </div>
-        <div class="navbar-right">
-            <ul class="nav-menu">
-                <li class="has-dropdown">
-                    <a href="#">SHOP</a>
-                    <div class="mega-menu">
-                        <div class="mega-menu-content">
-                            <div class="menu-column">
-                                <div class="categories-column">
-                                    <h5>CATEGORIES</h5>
-                                    <ul>
-                                        <li><a href="#">ALL</a></li>
-                                        <li><a href="#">TOPS</a></li>
-                                        <li><a href="#">BOTTOMS</a></li>
-                                        <li><a href="#">OUTERWEAR</a></li>
-                                        <li><a href="#">ACCESSORIES</a></li>
-                                        <li><a href="#">NEW ARRIVALS</a></li>
-                                        <li><a href="#">BEST SELLERS</a></li>
-                                        <li><a href="#">SALE</a></li>
-                                    </ul>
-                                </div>
-                                <div class="collections-column"><h5>COLLECTIONS</h5>
-                                    <ul>
-                                        <li><a href="#">ELEMENTS</a></li>
-                                        <li><a href="#">MOTION</a></li>
-                                        <li><a href="#">FREEDOM</a></li>
-                                        <li><a href="#">ESSENTIALS</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="menu-featured-column">
-                                <a href="#">
-                                    <div class="featured-product-image" style="background-image: url('{{ 'N6ausDEX6KQB23EM1R2C2UhNFk.avif' | asset_url }}');"></div>
-                                    <div class="featured-product-text">
-                                        <h3>JUST DROPPED</h3>
-                                        <span>LIMITED EDITION ARCHITECTURAL DAYPACK</span>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="menu-featured-column">
-                                <a href="#">
-                                    <div class="featured-product-image" style="background-image: url('{{ 'ROJvRZzraJIPVF1E7Bjg21cwc.avif' | asset_url }}');"></div>
-                                    <div class="featured-product-text">
-                                        <h3>BLACK FRIDAY SALE</h3>
-                                        <span>SAVE UP TO 20% OFF ON SELECT ITEMS</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li><a href="#">ABOUT</a></li>
-                <li><a href="#">JOURNAL</a></li>
-                <li><a href="#">CONTACT</a></li>
-            </ul>
-            <div class="nav-icons">
-                <a href="#" class="icon-link"><i class="fas fa-search"></i></a>
-                <a href="#" class="icon-link"><i class="fas fa-user"></i></a>
-                <a href="#" class="icon-link cart">
-                    <i class="fas fa-shopping-bag"></i>
-                    <span class="cart-count">0</span>
-                </a>
+{% comment %}
+  Footer Section - Main site footer with banner, links, and newsletter signup
+{% endcomment %}
+
+<footer class="main-footer-section" id="footer-{{ section.id }}">
+  <div
+    class="footer-banner"
+    {% if section.settings.banner_image != blank %}
+      style="background-image: url('{{ section.settings.banner_image | image_url: width: 1600 }}');"
+    {% else %}
+      style="background-image: url('{{ 'IMG_7761-Enhanced-NR-min.jpg' | asset_url }}');"
+    {% endif %}
+  >
+    <div class="footer-banner-text">
+      <h2>
+        <span>{{ section.settings.banner_text | default: 'MOVE YOUR WAY' }}</span>
+      </h2>
+    </div>
+  </div>
+
+  <div class="footer-links-container">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'footer_column' %}
+          <div class="footer-column" {{ block.shopify_attributes }}>
+            <h3 class="footer-category-title">{{ block.settings.column_title | default: 'COLUMN TITLE' }}</h3>
+            <div class="footer-links-row">
+              {% for i in (1..8) %}
+                {% assign link_setting = 'link_' | append: i %}
+                {% assign text_setting = 'link_text_' | append: i %}
+                {% if block.settings[text_setting] != blank %}
+                  {% if block.settings[link_setting] != blank %}
+                    <a href="{{ block.settings[link_setting] }}" class="footer-link-tag">
+                      <span>{{ block.settings[text_setting] }}</span>
+                    </a>
+                  {% else %}
+                    <span class="footer-link-tag">
+                      <span>{{ block.settings[text_setting] }}</span>
+                    </span>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
             </div>
+          </div>
+      {% endcase %}
+    {% endfor %}
+
+    {% comment %} Fallback content if no blocks are added {% endcomment %}
+    {% if section.blocks.size == 0 %}
+      <div class="footer-column">
+        <h3 class="footer-category-title">SUPPORT</h3>
+        <div class="footer-links-row">
+          <a href="#" class="footer-link-tag"><span>MY ACCOUNT</span></a>
+          <a href="#" class="footer-link-tag"><span>RETURNS & REFUNDS</span></a>
+          <a href="#" class="footer-link-tag"><span>SHIPPING & DELIVERY</span></a>
         </div>
-    </nav>
-</header> 
+      </div>
+
+      <div class="footer-column">
+        <h3 class="footer-category-title">ABOUT</h3>
+        <div class="footer-links-row">
+          <a href="#" class="footer-link-tag"><span>ABOUT GLADE</span></a>
+          <a href="#" class="footer-link-tag"><span>CONTACT</span></a>
+        </div>
+      </div>
+
+      <div class="footer-column">
+        <h3 class="footer-category-title">SOCIAL MEDIA</h3>
+        <div class="footer-links-row">
+          <a href="#" class="footer-link-tag"><span>INSTAGRAM</span></a>
+          <a href="#" class="footer-link-tag"><span>X / TWITTER</span></a>
+          <a href="#" class="footer-link-tag"><span>YOUTUBE</span></a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="footer-subscribe-section">
+    <div class="subscribe-form-container">
+      <form class="subscribe-form" action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
+        <input
+          type="email"
+          name="contact[email]"
+          placeholder="{{ section.settings.newsletter_placeholder | default: 'Your Email Address' }}"
+          required
+        >
+        <button type="submit">{{ section.settings.newsletter_button_text | default: 'SUBSCRIBE' }}</button>
+      </form>
+      <div class="subscribe-agreement">
+        <input type="checkbox" id="privacy-agree-{{ section.id }}" required>
+        <label for="privacy-agree-{{ section.id }}">
+          {{- section.settings.privacy_text | default: 'BY SUBSCRIBING YOU AGREE TO THE PRIVACY POLICY' -}}
+        </label>
+      </div>
+    </div>
+    <div class="subscribe-links">
+      <a href="{{ section.settings.terms_url | default: '#' }}">
+        {{- section.settings.terms_text | default: 'TERMS & CONDITIONS' -}}
+      </a>
+      <a href="{{ section.settings.privacy_url | default: '#' }}">
+        {{- section.settings.privacy_text_link | default: 'PRIVACY' -}}
+      </a>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "tag": "section",
+  "class": "section-footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Background Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_text",
+      "label": "Banner Text",
+      "default": "MOVE YOUR WAY"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter Section"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Email Placeholder Text",
+      "default": "Your Email Address"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button_text",
+      "label": "Subscribe Button Text",
+      "default": "SUBSCRIBE"
+    },
+    {
+      "type": "text",
+      "id": "privacy_text",
+      "label": "Privacy Agreement Text",
+      "default": "BY SUBSCRIBING YOU AGREE TO THE PRIVACY POLICY"
+    },
+    {
+      "type": "header",
+      "content": "Footer Links"
+    },
+    {
+      "type": "text",
+      "id": "terms_text",
+      "label": "Terms Link Text",
+      "default": "TERMS & CONDITIONS"
+    },
+    {
+      "type": "url",
+      "id": "terms_url",
+      "label": "Terms Link URL"
+    },
+    {
+      "type": "text",
+      "id": "privacy_text_link",
+      "label": "Privacy Link Text",
+      "default": "PRIVACY"
+    },
+    {
+      "type": "url",
+      "id": "privacy_url",
+      "label": "Privacy Link URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "footer_column",
+      "name": "Footer Column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "column_title",
+          "label": "Column Title",
+          "default": "COLUMN TITLE"
+        },
+        {
+          "type": "text",
+          "id": "link_text_1",
+          "label": "Link 1 Text"
+        },
+        {
+          "type": "url",
+          "id": "link_1",
+          "label": "Link 1 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_text_2",
+          "label": "Link 2 Text"
+        },
+        {
+          "type": "url",
+          "id": "link_2",
+          "label": "Link 2 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_text_3",
+          "label": "Link 3 Text"
+        },
+        {
+          "type": "url",
+          "id": "link_3",
+          "label": "Link 3 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_text_4",
+          "label": "Link 4 Text"
+        },
+        {
+          "type": "url",
+          "id": "link_4",
+          "label": "Link 4 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_text_5",
+          "label": "Link 5 Text"
+        },
+        {
+          "type": "url",
+          "id": "link_5",
+          "label": "Link 5 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_text_6",
+          "label": "Link 6 Text"
+        },
+        {
+          "type": "url",
+          "id": "link_6",
+          "label": "Link 6 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_text_7",
+          "label": "Link 7 Text"
+        },
+        {
+          "type": "url",
+          "id": "link_7",
+          "label": "Link 7 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_text_8",
+          "label": "Link 8 Text"
+        },
+        {
+          "type": "url",
+          "id": "link_8",
+          "label": "Link 8 URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer",
+      "blocks": [
+        {
+          "type": "footer_column",
+          "settings": {
+            "column_title": "SUPPORT",
+            "link_text_1": "MY ACCOUNT",
+            "link_text_2": "RETURNS & REFUNDS",
+            "link_text_3": "SHIPPING & DELIVERY"
+          }
+        },
+        {
+          "type": "footer_column",
+          "settings": {
+            "column_title": "ABOUT",
+            "link_text_1": "CONTACT"
+          }
+        },
+        {
+          "type": "footer_column",
+          "settings": {
+            "column_title": "SOCIAL MEDIA",
+            "link_text_1": "INSTAGRAM",
+            "link_text_2": "X / TWITTER",
+            "link_text_3": "YOUTUBE"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

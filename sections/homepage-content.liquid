@@ -1,0 +1,29 @@
+<div style="padding: 100px 50px; text-align: center; color: white; font-family: var(--font-sans);">
+  <h1 style="font-size: 48px; margin-bottom: 20px; font-family: var(--font-sans); font-weight: 700;">{{ section.settings.title | default: 'Welcome to Glade' }}</h1>
+  <p style="font-size: 18px; max-width: 600px; margin: 0 auto; font-family: var(--font-sans);">{{ section.settings.description | default: 'Your premium athletic wear destination' }}</p>
+</div>
+
+{% schema %}
+{
+  "name": "Homepage Content",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Welcome to Glade"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Your premium athletic wear destination"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Homepage Content"
+    }
+  ]
+}
+{% endschema %}

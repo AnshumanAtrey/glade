@@ -1,0 +1,229 @@
+{% comment %}
+  Journal Section - Blog/article showcase with featured content
+{% endcomment %}
+
+<section class="journal-section" id="journal-{{ section.id }}">
+  <div class="journal-header">
+    <div class="journal-header-left">
+      <h2>{{ section.settings.journal_title | default: 'FROM THE JOURNAL' }}</h2>
+      <p>{{ section.settings.journal_subtitle | default: 'EXPLORING THE PRINCIPLES OF DESIGN AND HOW WE APPROACH EVERYDAY PIECES.' }}</p>
+    </div>
+    <div class="journal-header-right">
+      {% if section.settings.view_all_url != blank %}
+        <a href="{{ section.settings.view_all_url }}" class="animated-btn">
+          <span class="text">{{ section.settings.view_all_text | default: 'VIEW ALL' }}</span>
+          <span class="arrow-wrapper">
+            <svg class="arrow arrow-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+            </svg>
+            <svg class="arrow arrow-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+            </svg>
+          </span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+  
+  <div class="journal-content">
+    <div class="journal-image-column">
+      {% if section.settings.featured_image != blank %}
+        <img 
+          src="{{ section.settings.featured_image | image_url: width: 800 }}" 
+          alt="{{ section.settings.featured_image_alt | default: 'Journal featured image' }}"
+          loading="lazy"
+        >
+      {% else %}
+        <img 
+          src="https://cdn.shopify.com/s/files/1/0733/2161/1521/files/girl-standing-color.jpg?v=1761142713" 
+          alt="Technical Wear"
+          loading="lazy"
+        >
+      {% endif %}
+    </div>
+    
+    <div class="journal-text-column">
+      <span>{{ section.settings.article_date | default: '12/6/24' }}</span>
+      <h3>{{ section.settings.article_title | default: 'THE EVOLUTION OF TECHNICAL WEAR' }}</h3>
+      <p>{{ section.settings.article_excerpt | default: 'The landscape of technical apparel has shifted dramatically. What began as purely functional design has transformed into something more considered - where performance meets architectural intention. This evolution mirrors our own journey in creating garments that serve both purpose and form.' }}</p>
+      
+      {% if section.settings.article_url != blank %}
+        <a href="{{ section.settings.article_url }}" class="animated-btn">
+          <span class="text">{{ section.settings.read_more_text | default: 'READ ENTRY' }}</span>
+          <span class="arrow-wrapper">
+            <svg class="arrow arrow-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+            </svg>
+            <svg class="arrow arrow-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+            </svg>
+          </span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+  
+  {% if section.blocks.size > 0 %}
+    <div class="multi-journal-section">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'journal_card' %}
+            <div class="journal-card" {{ block.shopify_attributes }}>
+              {% if block.settings.card_image != blank %}
+                <img 
+                  src="{{ block.settings.card_image | image_url: width: 400 }}" 
+                  alt="{{ block.settings.card_image_alt | default: 'Journal card image' }}"
+                  loading="lazy"
+                >
+              {% endif %}
+              
+              <div class="journal-card-info">
+                <span>{{ block.settings.card_date | default: '12/6/24' }}</span>
+                <h4>{{ block.settings.card_title | default: 'Article Title' }}</h4>
+                
+                {% if block.settings.card_url != blank %}
+                  <a href="{{ block.settings.card_url }}" class="animated-btn">
+                    <span class="text">{{ block.settings.card_button_text | default: 'READ MORE' }}</span>
+                    <span class="arrow-wrapper">
+                      <svg class="arrow arrow-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                      </svg>
+                      <svg class="arrow arrow-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                      </svg>
+                    </span>
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Journal",
+  "tag": "section",
+  "class": "section-journal",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "journal_title",
+      "label": "Section Title",
+      "default": "FROM THE JOURNAL"
+    },
+    {
+      "type": "textarea",
+      "id": "journal_subtitle",
+      "label": "Section Subtitle",
+      "default": "EXPLORING THE PRINCIPLES OF DESIGN AND HOW WE APPROACH EVERYDAY PIECES."
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View All Button Text",
+      "default": "VIEW ALL"
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "View All Link"
+    },
+    {
+      "type": "header",
+      "content": "Featured Article"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_image",
+      "label": "Featured Image"
+    },
+    {
+      "type": "text",
+      "id": "featured_image_alt",
+      "label": "Featured Image Alt Text"
+    },
+    {
+      "type": "text",
+      "id": "article_date",
+      "label": "Article Date",
+      "default": "12/6/24"
+    },
+    {
+      "type": "text",
+      "id": "article_title",
+      "label": "Article Title",
+      "default": "THE EVOLUTION OF TECHNICAL WEAR"
+    },
+    {
+      "type": "textarea",
+      "id": "article_excerpt",
+      "label": "Article Excerpt",
+      "default": "The landscape of technical apparel has shifted dramatically. What began as purely functional design has transformed into something more considered - where performance meets architectural intention."
+    },
+    {
+      "type": "text",
+      "id": "read_more_text",
+      "label": "Read More Button Text",
+      "default": "READ ENTRY"
+    },
+    {
+      "type": "url",
+      "id": "article_url",
+      "label": "Article Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "journal_card",
+      "name": "Journal Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "card_image_alt",
+          "label": "Card Image Alt Text"
+        },
+        {
+          "type": "text",
+          "id": "card_date",
+          "label": "Card Date",
+          "default": "12/6/24"
+        },
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card Title",
+          "default": "Article Title"
+        },
+        {
+          "type": "text",
+          "id": "card_button_text",
+          "label": "Button Text",
+          "default": "READ MORE"
+        },
+        {
+          "type": "url",
+          "id": "card_url",
+          "label": "Card Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Journal"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,158 @@
+{% comment %}
+  Instagram Section - Social media showcase with scrolling photo marquee
+{% endcomment %}
+
+<section class="instagram-section" id="instagram-{{ section.id }}">
+  <div class="instagram-header">
+    <div class="header-text">
+      <h2>{{ section.settings.instagram_title | default: 'FOLLOW GLADE' }}</h2>
+      <p>{{ section.settings.instagram_subtitle | default: 'WEAR IT YOUR WAY. TAG US ON INSTAGRAM FOR YOUR CHANCE TO BE FEATURED.' }}</p>
+    </div>
+    {% if section.settings.cta_url != blank %}
+      <a href="{{ section.settings.cta_url }}" class="animated-btn">
+        <span class="text">{{ section.settings.cta_text | default: 'Shop Now' }}</span>
+        <span class="arrow-wrapper">
+          <svg class="arrow arrow-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+          </svg>
+          <svg class="arrow arrow-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+          </svg>
+        </span>
+      </a>
+    {% endif %}
+  </div>
+  
+  <div class="photo-marquee">
+    <div class="marquee-track" id="marquee-track-{{ section.id }}">
+      {% assign has_images = false %}
+      {% for block in section.blocks %}
+        {% if block.settings.image != blank %}
+          {% assign has_images = true %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+      
+      {% comment %} Always show fallback images with proper infinite scroll {% endcomment %}
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=400&fit=crop" alt="Athletic wear photo 1" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=300&h=400&fit=crop" alt="Athletic wear photo 2" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1506629905607-d405b7a82d8c?w=300&h=400&fit=crop" alt="Athletic wear photo 3" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=300&h=400&fit=crop" alt="Athletic wear photo 4" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=400&fit=crop" alt="Athletic wear photo 5" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=300&h=400&fit=crop" alt="Athletic wear photo 6" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1506629905607-d405b7a82d8c?w=300&h=400&fit=crop" alt="Athletic wear photo 7" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=300&h=400&fit=crop" alt="Athletic wear photo 8" loading="lazy">
+      
+      {% comment %} Duplicate for seamless infinite loop {% endcomment %}
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=400&fit=crop" alt="Athletic wear photo 1" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=300&h=400&fit=crop" alt="Athletic wear photo 2" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1506629905607-d405b7a82d8c?w=300&h=400&fit=crop" alt="Athletic wear photo 3" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=300&h=400&fit=crop" alt="Athletic wear photo 4" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=400&fit=crop" alt="Athletic wear photo 5" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=300&h=400&fit=crop" alt="Athletic wear photo 6" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1506629905607-d405b7a82d8c?w=300&h=400&fit=crop" alt="Athletic wear photo 7" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=300&h=400&fit=crop" alt="Athletic wear photo 8" loading="lazy">
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Instagram",
+  "tag": "section",
+  "class": "section-instagram",
+  "settings": [
+    {
+      "type": "text",
+      "id": "instagram_title",
+      "label": "Section Title",
+      "default": "FOLLOW GLADE"
+    },
+    {
+      "type": "textarea",
+      "id": "instagram_subtitle",
+      "label": "Section Subtitle",
+      "default": "WEAR IT YOUR WAY. TAG US ON INSTAGRAM FOR YOUR CHANCE TO BE FEATURED."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Enable Auto-scroll",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "label": "Scroll Speed (seconds)",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "instagram_image",
+      "name": "Instagram Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "Alt Text",
+          "info": "Describe the image for accessibility"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram",
+      "blocks": [
+        {
+          "type": "instagram_image"
+        },
+        {
+          "type": "instagram_image"
+        },
+        {
+          "type": "instagram_image"
+        },
+        {
+          "type": "instagram_image"
+        },
+        {
+          "type": "instagram_image"
+        },
+        {
+          "type": "instagram_image"
+        },
+        {
+          "type": "instagram_image"
+        },
+        {
+          "type": "instagram_image"
+        },
+        {
+          "type": "instagram_image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
