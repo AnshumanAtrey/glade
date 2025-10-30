@@ -54,7 +54,7 @@
         "carousel_title": "LATEST PRODUCTS",
         "carousel_subtitle": "Discover our newest arrivals and latest drops.",
         "products_limit": 8,
-        "view_all_url": "/pages/shop",
+        "view_all_url": "/pages/shop-all",
         "enable_autoplay": true,
         "autoplay_speed": 5
       }

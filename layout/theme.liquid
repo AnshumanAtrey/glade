@@ -46,6 +46,14 @@
     {% if template contains 'page.shop' or template contains 'page.shop-all' %}
       <script src="{{ 'shop.js' | asset_url }}" defer="defer"></script>
     {% endif %}
+    
+    <!-- Product Page JavaScript -->
+    {% if template contains 'product' %}
+      <script src="{{ 'product.js' | asset_url }}" defer="defer"></script>
+    {% endif %}
+    
+    <!-- Cart Drawer JavaScript -->
+    <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
 
     <!-- GSAP Animation Library -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
@@ -72,6 +80,14 @@
     {% if template contains 'page.shop' or template contains 'page.shop-all' %}
       {{ 'shop.css' | asset_url | stylesheet_tag }}
     {% endif %}
+    
+    <!-- Product Page Styles -->
+    {% if template contains 'product' %}
+      {{ 'product.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+    
+    <!-- Cart Drawer Styles -->
+    {{ 'cart-drawer.css' | asset_url | stylesheet_tag }}
 
     <!-- Base Styles -->
     <style>
@@ -121,6 +137,9 @@
     </main>
 
     {% sections 'footer-group' %}
+    
+    <!-- Cart Drawer -->
+    {% section 'cart-drawer' %}
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>

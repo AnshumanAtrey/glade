@@ -1,0 +1,244 @@
+{% comment %}
+  Cart Drawer Section - Slide-out cart from right side
+  Fully customizable through Shopify editor
+{% endcomment %}
+
+<div class="cart-drawer-overlay" id="cart-drawer-overlay" style="display: none;">
+  <div class="cart-drawer" id="cart-drawer">
+    <!-- Cart Header -->
+    <div class="cart-drawer-header">
+      <div class="cart-drawer-title-container">
+        <span class="cart-drawer-count" id="cart-drawer-count">{{ cart.item_count }}</span>
+        <span class="cart-drawer-title">{{ section.settings.cart_title | default: 'ITEMS IN YOUR BAG' }}</span>
+      </div>
+      <button class="cart-drawer-close" id="cart-drawer-close" aria-label="Close cart">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Cart Items -->
+    <div class="cart-drawer-items" id="cart-drawer-items">
+      {% if cart.items.size > 0 %}
+        {% for item in cart.items %}
+          <div class="cart-drawer-item" data-item-id="{{ item.id }}">
+            <div class="cart-item-image">
+              {% if item.image %}
+                <img src="{{ item.image | image_url: width: 120 }}" 
+                     alt="{{ item.image.alt | default: item.title }}"
+                     width="80"
+                     height="100">
+              {% else %}
+                <div class="cart-item-placeholder">
+                  <span>No Image</span>
+                </div>
+              {% endif %}
+            </div>
+            
+            <div class="cart-item-details">
+              <h4 class="cart-item-title">{{ item.product.title }}</h4>
+              {% if item.variant.title != 'Default Title' %}
+                <p class="cart-item-variant">{{ item.variant.title }}</p>
+              {% endif %}
+              
+              <div class="cart-item-price-row">
+                <span class="cart-item-price">{{ item.final_line_price | money }}</span>
+                {% if item.original_line_price > item.final_line_price %}
+                  <span class="cart-item-original-price">{{ item.original_line_price | money }}</span>
+                {% endif %}
+              </div>
+              
+              <div class="cart-item-quantity">
+                <button class="quantity-btn quantity-decrease" 
+                        data-item-id="{{ item.id }}"
+                        data-quantity="{{ item.quantity | minus: 1 }}"
+                        aria-label="Decrease quantity">
+                  -
+                </button>
+                <span class="quantity-display">{{ item.quantity }}</span>
+                <button class="quantity-btn quantity-increase" 
+                        data-item-id="{{ item.id }}"
+                        data-quantity="{{ item.quantity | plus: 1 }}"
+                        aria-label="Increase quantity">
+                  +
+                </button>
+                <button class="cart-item-remove" 
+                        data-item-id="{{ item.id }}"
+                        aria-label="Remove item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="cart-empty-state">
+          <div class="cart-empty-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+          </div>
+          <h3 class="cart-empty-title">{{ section.settings.empty_title | default: 'Your bag is empty' }}</h3>
+          <p class="cart-empty-text">{{ section.settings.empty_text | default: 'Add some products to get started' }}</p>
+          {% if section.settings.empty_button_text != blank %}
+            <a href="{{ section.settings.empty_button_url | default: '/collections/all' }}" 
+               class="cart-empty-button">
+              {{ section.settings.empty_button_text }}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Cart Footer -->
+    {% if cart.items.size > 0 %}
+      <div class="cart-drawer-footer">
+        <!-- Shipping Notice -->
+        {% if section.settings.show_shipping_notice %}
+          <div class="cart-shipping-notice">
+            <div class="shipping-notice-label">{{ section.settings.shipping_label | default: 'SHIPPING & TAXES' }}</div>
+            <div class="shipping-notice-text">{{ section.settings.shipping_text | default: 'CALCULATED AT CHECKOUT' }}</div>
+          </div>
+        {% endif %}
+
+        <!-- Subtotal -->
+        <div class="cart-subtotal-row">
+          <span class="cart-subtotal-label">{{ section.settings.subtotal_label | default: 'SUBTOTAL' }}</span>
+          <span class="cart-subtotal-amount" id="cart-subtotal-amount">{{ cart.total_price | money }}</span>
+        </div>
+
+        <!-- Checkout Button -->
+        <button class="cart-checkout-btn" id="cart-checkout-btn">
+          {{ section.settings.checkout_text | default: 'PROCEED TO CHECKOUT' }}
+        </button>
+
+        <!-- Additional Info -->
+        {% if section.settings.show_additional_info and section.settings.additional_info != blank %}
+          <div class="cart-additional-info">
+            {{ section.settings.additional_info }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cart Drawer",
+  "tag": "section",
+  "class": "section-cart-drawer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Cart Header"
+    },
+    {
+      "type": "text",
+      "id": "cart_title",
+      "label": "Cart Title",
+      "default": "ITEMS IN YOUR BAG"
+    },
+    {
+      "type": "header",
+      "content": "Empty Cart"
+    },
+    {
+      "type": "text",
+      "id": "empty_title",
+      "label": "Empty Cart Title",
+      "default": "Your bag is empty"
+    },
+    {
+      "type": "textarea",
+      "id": "empty_text",
+      "label": "Empty Cart Text",
+      "default": "Add some products to get started"
+    },
+    {
+      "type": "text",
+      "id": "empty_button_text",
+      "label": "Empty Cart Button Text",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "empty_button_url",
+      "label": "Empty Cart Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Cart Footer"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shipping_notice",
+      "label": "Show Shipping Notice",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shipping_label",
+      "label": "Shipping Label",
+      "default": "SHIPPING & TAXES"
+    },
+    {
+      "type": "text",
+      "id": "shipping_text",
+      "label": "Shipping Text",
+      "default": "CALCULATED AT CHECKOUT"
+    },
+    {
+      "type": "text",
+      "id": "subtotal_label",
+      "label": "Subtotal Label",
+      "default": "SUBTOTAL"
+    },
+    {
+      "type": "text",
+      "id": "checkout_text",
+      "label": "Checkout Button Text",
+      "default": "PROCEED TO CHECKOUT"
+    },
+    {
+      "type": "header",
+      "content": "Additional Info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_additional_info",
+      "label": "Show Additional Info",
+      "default": false
+    },
+    {
+      "type": "textarea",
+      "id": "additional_info",
+      "label": "Additional Info Text",
+      "info": "Displayed at bottom of cart (e.g., return policy, contact info)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cart Drawer",
+      "settings": {
+        "cart_title": "ITEMS IN YOUR BAG",
+        "empty_title": "Your bag is empty",
+        "empty_text": "Add some products to get started",
+        "empty_button_text": "SHOP NOW",
+        "show_shipping_notice": true,
+        "shipping_label": "SHIPPING & TAXES",
+        "shipping_text": "CALCULATED AT CHECKOUT",
+        "subtotal_label": "SUBTOTAL",
+        "checkout_text": "PROCEED TO CHECKOUT"
+      }
+    }
+  ]
+}
+{% endschema %}

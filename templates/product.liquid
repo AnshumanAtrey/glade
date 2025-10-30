@@ -1,0 +1,15 @@
+{% comment %}
+  Product Template - Individual product page
+  Uses modular sections with header and footer
+{% endcomment %}
+
+{% section 'header' %}
+
+{% section 'product-main' %}
+
+{% section 'footer' %}
+
+<!-- Product data for JavaScript -->
+<script>
+  window.product = {{ product | json }};
+</script>

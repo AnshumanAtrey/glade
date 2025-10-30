@@ -183,8 +183,10 @@ class FooterSection {
       font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
-      background: ${type === 'success' ? '#4CAF50' : '#ff6b6b'};
-      color: #fff;
+      background: ${type === 'success' ? '#fff' : '#ff6b6b'};
+      color: ${type === 'success' ? '#000' : '#fff'};
+      border: ${type === 'success' ? '1px solid #fff' : 'none'};
+      border-radius: 0;
       z-index: 10;
       animation: slideDown 0.3s ease-out;
     `;

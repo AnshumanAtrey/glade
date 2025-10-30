@@ -1,0 +1,364 @@
+{% comment %}
+  Product Main Section - Individual product page with gallery and details
+  Mobile optimized and fully customizable through Shopify editor
+{% endcomment %}
+
+<section class="product-main-section" id="product-{{ product.id }}">
+  <div class="product-container">
+    <!-- Product Gallery -->
+    <div class="product-gallery">
+      <div class="product-main-image">
+        {% if product.featured_image %}
+          <img src="{{ product.featured_image | image_url: width: 800 }}" 
+               alt="{{ product.featured_image.alt | default: product.title }}"
+               id="main-product-image"
+               width="800"
+               height="1000">
+        {% else %}
+          <div class="product-image-placeholder">
+            <span>No Image Available</span>
+          </div>
+        {% endif %}
+      </div>
+      
+      {% if product.images.size > 1 %}
+        <div class="product-thumbnails">
+          {% for image in product.images %}
+            <button class="product-thumb {% if forloop.first %}active{% endif %}"
+                    data-image="{{ image | image_url: width: 800 }}"
+                    data-index="{{ forloop.index0 }}">
+              <img src="{{ image | image_url: width: 120 }}" 
+                   alt="{{ image.alt | default: product.title }}"
+                   width="120"
+                   height="150">
+            </button>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Product Info -->
+    <div class="product-info">
+      <!-- Breadcrumb -->
+      <nav class="product-breadcrumb">
+        <a href="{{ routes.root_url }}">{{ section.settings.home_text | default: 'HOME' }}</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="{{ section.settings.shop_url | default: '/pages/shop-all' }}">{{ section.settings.shop_text | default: 'SHOP' }}</a>
+        {% if product.type != blank %}
+          <span class="breadcrumb-separator">/</span>
+          <span>{{ product.type | upcase }}</span>
+        {% endif %}
+      </nav>
+
+      <!-- Product Title -->
+      <h1 class="product-title">{{ product.title }}</h1>
+
+      <!-- Product Price -->
+      <div class="product-price-container">
+        {% if product.compare_at_price > product.price %}
+          <span class="product-price product-price--sale">{{ product.price | money }}</span>
+          <span class="product-price product-price--compare">{{ product.compare_at_price | money }}</span>
+          <span class="product-sale-badge">{{ section.settings.sale_text | default: 'SALE' }}</span>
+        {% else %}
+          <span class="product-price">{{ product.price | money }}</span>
+        {% endif %}
+      </div>
+
+      <!-- Product Description -->
+      {% if product.description != blank %}
+        <div class="product-description">
+          {{ product.description | truncatewords: section.settings.description_length | default: 30 }}
+        </div>
+      {% endif %}
+
+      <!-- Product Tabs -->
+      {% if section.settings.show_tabs %}
+        <div class="product-tabs">
+          <button class="product-tab active" data-tab="materials">{{ section.settings.tab1_title | default: 'MATERIALS' }}</button>
+          <button class="product-tab" data-tab="care">{{ section.settings.tab2_title | default: 'CARE' }}</button>
+          <button class="product-tab" data-tab="shipping">{{ section.settings.tab3_title | default: 'SHIPPING' }}</button>
+        </div>
+        
+        <div class="product-tab-content">
+          <div class="tab-panel active" id="materials">
+            {{ section.settings.tab1_content | default: 'Premium materials designed for performance and comfort.' }}
+          </div>
+          <div class="tab-panel" id="care">
+            {{ section.settings.tab2_content | default: 'Machine wash cold. Tumble dry low. Do not bleach.' }}
+          </div>
+          <div class="tab-panel" id="shipping">
+            {{ section.settings.tab3_content | default: 'Free shipping on orders over $100. Express shipping available.' }}
+          </div>
+        </div>
+      {% endif %}
+
+      <!-- Product Form -->
+      <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="product-form">
+        <!-- Variant Selection -->
+        {% unless product.has_only_default_variant %}
+          <div class="product-options">
+            {% for option in product.options_with_values %}
+              <div class="product-option">
+                <label class="product-option-label">{{ option.name }}</label>
+                <div class="product-option-values">
+                  {% for value in option.values %}
+                    <input type="radio" 
+                           name="option-{{ option.position }}" 
+                           value="{{ value | escape }}"
+                           id="option-{{ option.position }}-{{ forloop.index }}"
+                           {% if forloop.first %}checked{% endif %}>
+                    <label for="option-{{ option.position }}-{{ forloop.index }}" 
+                           class="product-option-value">
+                      {{ value }}
+                    </label>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+            
+            {% if section.settings.show_size_guide and product.options contains 'Size' %}
+              <a href="{{ section.settings.size_guide_url | default: '#' }}" 
+                 class="size-guide-link">
+                {{ section.settings.size_guide_text | default: 'SIZE GUIDE' }}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                </svg>
+              </a>
+            {% endif %}
+          </div>
+        {% endunless %}
+
+        <!-- Quantity -->
+        {% if section.settings.show_quantity %}
+          <div class="product-quantity">
+            <label class="product-quantity-label">{{ section.settings.quantity_text | default: 'QUANTITY' }}</label>
+            <div class="quantity-selector">
+              <button type="button" class="quantity-btn quantity-minus">-</button>
+              <input type="number" name="quantity" value="1" min="1" class="quantity-input">
+              <button type="button" class="quantity-btn quantity-plus">+</button>
+            </div>
+          </div>
+        {% else %}
+          <input type="hidden" name="quantity" value="1">
+        {% endif %}
+
+        <!-- Variant ID -->
+        <select name="id" class="product-variants" style="display: none;">
+          {% for variant in product.variants %}
+            <option value="{{ variant.id }}" 
+                    {% if variant == product.selected_or_first_available_variant %}selected{% endif %}
+                    data-available="{{ variant.available }}"
+                    data-price="{{ variant.price }}"
+                    data-compare-price="{{ variant.compare_at_price }}">
+              {{ variant.title }}
+            </option>
+          {% endfor %}
+        </select>
+
+        <!-- Shipping Info -->
+        {% if section.settings.show_shipping_info %}
+          <div class="product-shipping-info">
+            {{ section.settings.shipping_text | default: 'SHIPPING CALCULATED AT CHECKOUT' }}
+          </div>
+        {% endif %}
+
+        <!-- Add to Cart Button -->
+        <button type="submit" 
+                class="product-add-to-cart"
+                {% unless product.available %}disabled{% endunless %}>
+          <span class="btn-text">
+            {% if product.available %}
+              {{ section.settings.add_to_cart_text | default: 'ADD TO BAG' }}
+            {% else %}
+              {{ section.settings.sold_out_text | default: 'SOLD OUT' }}
+            {% endif %}
+          </span>
+        </button>
+
+        <!-- Additional Info -->
+        {% if section.settings.show_additional_info %}
+          <div class="product-additional-info">
+            {{ section.settings.additional_info_text }}
+          </div>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Main",
+  "tag": "section",
+  "class": "section-product-main",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Breadcrumb Settings"
+    },
+    {
+      "type": "text",
+      "id": "home_text",
+      "label": "Home Text",
+      "default": "HOME"
+    },
+    {
+      "type": "text",
+      "id": "shop_text",
+      "label": "Shop Text",
+      "default": "SHOP"
+    },
+    {
+      "type": "url",
+      "id": "shop_url",
+      "label": "Shop URL"
+    },
+    {
+      "type": "header",
+      "content": "Product Info"
+    },
+    {
+      "type": "range",
+      "id": "description_length",
+      "label": "Description Length (words)",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "default": 30
+    },
+    {
+      "type": "text",
+      "id": "sale_text",
+      "label": "Sale Badge Text",
+      "default": "SALE"
+    },
+    {
+      "type": "header",
+      "content": "Product Tabs"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tabs",
+      "label": "Show Product Tabs",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "tab1_title",
+      "label": "Tab 1 Title",
+      "default": "MATERIALS"
+    },
+    {
+      "type": "textarea",
+      "id": "tab1_content",
+      "label": "Tab 1 Content",
+      "default": "Premium materials designed for performance and comfort."
+    },
+    {
+      "type": "text",
+      "id": "tab2_title",
+      "label": "Tab 2 Title",
+      "default": "CARE"
+    },
+    {
+      "type": "textarea",
+      "id": "tab2_content",
+      "label": "Tab 2 Content",
+      "default": "Machine wash cold. Tumble dry low. Do not bleach."
+    },
+    {
+      "type": "text",
+      "id": "tab3_title",
+      "label": "Tab 3 Title",
+      "default": "SHIPPING"
+    },
+    {
+      "type": "textarea",
+      "id": "tab3_content",
+      "label": "Tab 3 Content",
+      "default": "Free shipping on orders over $100. Express shipping available."
+    },
+    {
+      "type": "header",
+      "content": "Product Options"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quantity",
+      "label": "Show Quantity Selector",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "quantity_text",
+      "label": "Quantity Label",
+      "default": "QUANTITY"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_size_guide",
+      "label": "Show Size Guide Link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "size_guide_text",
+      "label": "Size Guide Text",
+      "default": "SIZE GUIDE"
+    },
+    {
+      "type": "url",
+      "id": "size_guide_url",
+      "label": "Size Guide URL"
+    },
+    {
+      "type": "header",
+      "content": "Add to Cart"
+    },
+    {
+      "type": "text",
+      "id": "add_to_cart_text",
+      "label": "Add to Cart Text",
+      "default": "ADD TO BAG"
+    },
+    {
+      "type": "text",
+      "id": "sold_out_text",
+      "label": "Sold Out Text",
+      "default": "SOLD OUT"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shipping_info",
+      "label": "Show Shipping Info",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shipping_text",
+      "label": "Shipping Text",
+      "default": "SHIPPING CALCULATED AT CHECKOUT"
+    },
+    {
+      "type": "header",
+      "content": "Additional Info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_additional_info",
+      "label": "Show Additional Info",
+      "default": false
+    },
+    {
+      "type": "textarea",
+      "id": "additional_info_text",
+      "label": "Additional Info Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Main"
+    }
+  ]
+}
+{% endschema %}

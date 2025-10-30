@@ -158,12 +158,15 @@
 .nav-icons .icon-link {
     color: #fff;
     text-decoration: none;
-    padding: 0 12px;
+    padding: 0 20px;
     font-size: 18px;
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
     border-right: 1px solid #666;
+    min-width: 60px;
+    height: 100%;
 }
 
 .nav-icons .icon-link svg {
@@ -179,22 +182,22 @@
 
 .nav-icons .cart .cart-count {
     position: absolute;
-    top: -6px;
-    right: -8px;
+    top: -2px;
+    right: -2px;
     background-color: #fff;
     color: #000;
     border: 1px solid #fff;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    border-radius: 0;
+    width: 22px;
+    height: 22px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 900;
     font-family: var(--font-sans);
-    line-height: 0.8;
-    min-width: 20px;
+    line-height: 1;
+    min-width: 22px;
     text-align: center;
 }
 
@@ -334,8 +337,9 @@
     }
 
     .nav-icons .icon-link {
-        padding: 0 8px;
+        padding: 0 16px;
         font-size: 16px;
+        min-width: 50px;
     }
 
     .logo-image {
@@ -345,10 +349,11 @@
 
     /* Cart count adjustments for mobile */
     .nav-icons .cart .cart-count {
-        width: 18px;
-        height: 18px;
-        font-size: 12px;
-        top: -4px;
-        right: -6px;
+        width: 20px;
+        height: 20px;
+        font-size: 11px;
+        top: -1px;
+        right: -1px;
+        border-radius: 0;
     }
 }

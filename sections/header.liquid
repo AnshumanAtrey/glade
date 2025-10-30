@@ -67,7 +67,7 @@
       <!-- Desktop navigation -->
       <ul class="nav-menu desktop-nav">
         <li>
-          <a href="{{ section.settings.shop_link | default: '/pages/shop' }}">
+          <a href="{{ section.settings.shop_link | default: '/pages/shop-all' }}">
             {{- section.settings.shop_text | default: 'SHOP' -}}
           </a>
         </li>
@@ -124,7 +124,7 @@
   <div class="mobile-nav" id="mobile-nav">
     <ul class="mobile-nav-menu">
       <li>
-        <a href="{{ section.settings.shop_link | default: '/pages/shop' }}">
+        <a href="{{ section.settings.shop_link | default: '/pages/shop-all' }}">
           {{- section.settings.shop_text | default: 'SHOP' -}}
         </a>
       </li>
