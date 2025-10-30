@@ -43,7 +43,7 @@
     <script src="{{ 'footer.js' | asset_url }}" defer="defer"></script>
     
     <!-- Shop Page JavaScript -->
-    {% if template contains 'page.shop' %}
+    {% if template contains 'page.shop' or template contains 'page.shop-all' %}
       <script src="{{ 'shop.js' | asset_url }}" defer="defer"></script>
     {% endif %}
 
@@ -69,7 +69,7 @@
     {{ 'footer.css' | asset_url | stylesheet_tag }}
     
     <!-- Shop Page Styles -->
-    {% if template contains 'page.shop' %}
+    {% if template contains 'page.shop' or template contains 'page.shop-all' %}
       {{ 'shop.css' | asset_url | stylesheet_tag }}
     {% endif %}
 
