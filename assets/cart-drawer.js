@@ -394,9 +394,9 @@ class CartDrawer {
   
   formatMoney(cents) {
     // Simple money formatting - can be enhanced based on shop currency
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD'
+      currency: 'INR'
     }).format(cents / 100);
   }
   
@@ -404,7 +404,7 @@ class CartDrawer {
     // Analytics tracking
     if (typeof gtag !== 'undefined') {
       gtag('event', 'add_to_cart', {
-        currency: 'USD',
+        currency: 'INR',
         value: item.price / 100,
         items: [{
           item_id: item.product_id,

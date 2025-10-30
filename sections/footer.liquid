@@ -3,22 +3,20 @@
 {% endcomment %}
 
 <footer class="main-footer-section" id="footer-{{ section.id }}">
-  {% unless template contains 'product' %}
-    <div
-      class="footer-banner"
-      {% if section.settings.banner_image != blank %}
-        style="background-image: url('{{ section.settings.banner_image | image_url: width: 1600 }}');"
-      {% else %}
-        style="background-image: url('{{ 'IMG_7761-Enhanced-NR-min.jpg' | asset_url }}');"
-      {% endif %}
-    >
-      <div class="footer-banner-text">
-        <h2>
-          <span>{{ section.settings.banner_text | default: 'MOVE YOUR WAY' }}</span>
-        </h2>
-      </div>
+  <div
+    class="footer-banner"
+    {% if section.settings.banner_image != blank %}
+      style="background-image: url('{{ section.settings.banner_image | image_url: width: 1600 }}');"
+    {% else %}
+      style="background-image: url('{{ 'IMG_7761-Enhanced-NR-min.jpg' | asset_url }}');"
+    {% endif %}
+  >
+    <div class="footer-banner-text">
+      <h2>
+        <span>{{ section.settings.banner_text | default: 'MOVE YOUR WAY' }}</span>
+      </h2>
     </div>
-  {% endunless %}
+  </div>
 
   <div class="footer-links-container">
     {% for block in section.blocks %}

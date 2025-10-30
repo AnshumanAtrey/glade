@@ -210,9 +210,9 @@ class ProductPage {
     if (!this.priceContainer) return;
     
     const formatPrice = (cents) => {
-      return new Intl.NumberFormat('en-US', {
+      return new Intl.NumberFormat('en-IN', {
         style: 'currency',
-        currency: 'USD'
+        currency: 'INR'
       }).format(cents / 100);
     };
     
@@ -352,7 +352,7 @@ class ProductPage {
     // Analytics tracking
     if (typeof gtag !== 'undefined') {
       gtag('event', 'add_to_cart', {
-        currency: 'USD',
+        currency: 'INR',
         value: item.price / 100,
         items: [{
           item_id: item.product_id,
