@@ -40,94 +40,61 @@
 
     <div class="carousel-wrapper">
       <div class="carousel-track" id="carousel-track-{{ section.id }}">
-        {% if section.settings.collection != blank %}
-          {% assign collection = collections[section.settings.collection] %}
-          {% if collection.products.size > 0 %}
-            {% for product in collection.products limit: section.settings.products_limit %}
-            <div class="carousel-slide">
-              <div class="carousel-product-card">
-                <div class="carousel-product-image" 
-                     style="background-image: url('{{ product.featured_image | image_url: width: 600 }}');"
-                     data-hover-image="{% if product.images[1] %}{{ product.images[1] | image_url: width: 600 }}{% endif %}">
-                  {% if product.compare_at_price > product.price %}
-                    <span class="product-tag">SALE</span>
-                  {% else %}
-                    <span class="product-tag">NEW</span>
-                  {% endif %}
-                  
-                  <div class="carousel-product-overlay">
-                    <a href="{{ product.url }}" class="animated-btn">
-                      <span class="text">SHOP NOW</span>
-                      <span class="arrow-wrapper">
-                        <svg class="arrow arrow-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-                        </svg>
-                        <svg class="arrow arrow-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-                        </svg>
-                      </span>
-                    </a>
-                  </div>
-                </div>
+        {% comment %} Render latest products from all collections {% endcomment %}
+        {% assign latest_products = collections.all.products | sort: 'created_at' | reverse %}
+        {% if latest_products.size > 0 %}
+          {% for product in latest_products limit: section.settings.products_limit %}
+          <div class="carousel-slide" data-product-id="{{ product.id }}">
+            <div class="carousel-product-card">
+              <div class="carousel-product-image" 
+                   style="background-image: url('{{ product.featured_image | image_url: width: 600 }}');"
+                   data-hover-image="{% if product.images[1] %}{{ product.images[1] | image_url: width: 600 }}{% endif %}">
+                {% if product.compare_at_price > product.price %}
+                  <span class="product-tag">SALE</span>
+                {% else %}
+                  <span class="product-tag">LATEST</span>
+                {% endif %}
                 
-                <div class="carousel-product-info">
-                  <span class="product-category">{{ product.type | upcase }}</span>
-                  <h3 class="product-name">{{ product.title }}</h3>
-                  <div class="product-price">
-                    {% if product.compare_at_price > product.price %}
-                      <span class="price-sale">{{ product.price | money }}</span>
-                      <span class="price-compare">{{ product.compare_at_price | money }}</span>
-                    {% else %}
-                      <span class="price-regular">{{ product.price | money }}</span>
-                    {% endif %}
-                  </div>
+                <div class="carousel-product-overlay">
+                  <a href="{{ product.url }}" class="animated-btn">
+                    <span class="text">SHOP NOW</span>
+                    <span class="arrow-wrapper">
+                      <svg class="arrow arrow-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                      </svg>
+                      <svg class="arrow arrow-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                      </svg>
+                    </span>
+                  </a>
+                </div>
+              </div>
+              
+              <div class="carousel-product-info">
+                <span class="product-category">{{ product.type | default: 'PRODUCT' | upcase }}</span>
+                <h3 class="product-name">{{ product.title }}</h3>
+                <div class="product-price">
+                  {% if product.compare_at_price > product.price %}
+                    <span class="price-sale">{{ product.price | money }}</span>
+                    <span class="price-compare">{{ product.compare_at_price | money }}</span>
+                  {% else %}
+                    <span class="price-regular">{{ product.price | money }}</span>
+                  {% endif %}
                 </div>
               </div>
             </div>
-            {% endfor %}
-          {% else %}
-            {% comment %} No products in collection, show fallback {% endcomment %}
-            {% for i in (1..6) %}
-              <div class="carousel-slide">
-                <div class="carousel-product-card">
-                  <div class="carousel-product-image" style="background-color: #333; display: flex; align-items: center; justify-content: center;">
-                    <span style="color: #666; font-size: 14px;">No Image</span>
-                    <div class="carousel-product-overlay">
-                      <a href="#" class="animated-btn">
-                        <span class="text">SHOP NOW</span>
-                        <span class="arrow-wrapper">
-                          <svg class="arrow arrow-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-                          </svg>
-                          <svg class="arrow arrow-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-                          </svg>
-                        </span>
-                      </a>
-                    </div>
-                  </div>
-                  
-                  <div class="carousel-product-info">
-                    <span class="product-category">SAMPLE</span>
-                    <h3 class="product-name">Sample Product {{ i }}</h3>
-                    <div class="product-price">
-                      <span class="price-regular">₹225</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            {% endfor %}
-          {% endif %}
+          </div>
+          {% endfor %}
         {% else %}
-          {% comment %} Fallback content for theme editor {% endcomment %}
+          {% comment %} Fallback when no products exist {% endcomment %}
           {% for i in (1..6) %}
             <div class="carousel-slide">
               <div class="carousel-product-card">
-                <div class="carousel-product-image" style="background-image: url('{{ 'product-' | append: i | append: '.jpg' | asset_url }}');">
-                  <span class="product-tag">NEW</span>
+                <div class="carousel-product-image" style="background: linear-gradient(135deg, #333 0%, #111 100%); display: flex; align-items: center; justify-content: center;">
+                  <span style="color: #666; font-size: 14px; text-transform: uppercase;">Add Products</span>
                   <div class="carousel-product-overlay">
-                    <a href="#" class="animated-btn">
-                      <span class="text">SHOP NOW</span>
+                    <a href="/admin/products" class="animated-btn">
+                      <span class="text">ADD PRODUCTS</span>
                       <span class="arrow-wrapper">
                         <svg class="arrow arrow-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
@@ -141,10 +108,10 @@
                 </div>
                 
                 <div class="carousel-product-info">
-                  <span class="product-category">OUTERWEAR</span>
+                  <span class="product-category">SAMPLE</span>
                   <h3 class="product-name">Sample Product {{ i }}</h3>
                   <div class="product-price">
-                    <span class="price-regular">₹225</span>
+                    <span class="price-regular">₹2,250</span>
                   </div>
                 </div>
               </div>
@@ -153,6 +120,32 @@
         {% endif %}
       </div>
     </div>
+
+    <!-- Product data for JavaScript consumption -->
+    <script id="carousel-products-json-{{ section.id }}" type="application/json">
+      {
+        "products": [
+          {% for product in latest_products limit: section.settings.products_limit %}
+            {
+              "id": {{ product.id }},
+              "title": {{ product.title | json }},
+              "handle": {{ product.handle | json }},
+              "price": {{ product.price | json }},
+              "compare_at_price": {{ product.compare_at_price | json }},
+              "url": {{ product.url | json }},
+              "featured_image": {{ product.featured_image | image_url: width: 600 | json }},
+              "images": [
+                {% for image in product.images limit: 3 %}
+                  {{ image | image_url: width: 600 | json }}{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+              ],
+              "type": {{ product.type | json }},
+              "created_at": {{ product.created_at | json }}
+            }{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        ]
+      }
+    </script>
 
     <div class="carousel-indicators">
       {% assign total_slides = section.settings.products_limit | default: 6 %}
@@ -170,7 +163,7 @@
 
 {% schema %}
 {
-  "name": "Carousel",
+  "name": "Latest Products Carousel",
   "tag": "section",
   "class": "section-carousel",
   "settings": [
@@ -178,32 +171,29 @@
       "type": "text",
       "id": "carousel_title",
       "label": "Section Title",
-      "default": "FEATURED PRODUCTS"
+      "default": "LATEST PRODUCTS"
     },
     {
       "type": "textarea",
       "id": "carousel_subtitle",
       "label": "Section Subtitle",
-      "default": "Discover our curated selection of premium pieces."
-    },
-    {
-      "type": "collection",
-      "id": "collection",
-      "label": "Collection"
+      "default": "Discover our newest arrivals and latest drops."
     },
     {
       "type": "range",
       "id": "products_limit",
-      "label": "Number of products",
+      "label": "Number of products to show",
       "min": 3,
       "max": 12,
       "step": 1,
-      "default": 6
+      "default": 8,
+      "info": "Shows the most recently added products"
     },
     {
       "type": "url",
       "id": "view_all_url",
-      "label": "View All Link"
+      "label": "View All Link",
+      "default": "/collections/all"
     },
     {
       "type": "checkbox",
@@ -223,7 +213,13 @@
   ],
   "presets": [
     {
-      "name": "Carousel"
+      "name": "Latest Products Carousel",
+      "settings": {
+        "carousel_title": "LATEST PRODUCTS",
+        "carousel_subtitle": "Discover our newest arrivals and latest drops.",
+        "products_limit": 8,
+        "view_all_url": "/collections/all"
+      }
     }
   ]
 }

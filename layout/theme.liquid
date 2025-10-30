@@ -41,9 +41,14 @@
     
     <!-- Footer JavaScript -->
     <script src="{{ 'footer.js' | asset_url }}" defer="defer"></script>
+    
+    <!-- Shop Page JavaScript -->
+    {% if template contains 'page.shop' %}
+      <script src="{{ 'shop.js' | asset_url }}" defer="defer"></script>
+    {% endif %}
 
     <!-- GSAP Animation Library -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
 
     <!-- Mona Sans Font -->
     <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -62,6 +67,11 @@
     
     <!-- Footer Styles -->
     {{ 'footer.css' | asset_url | stylesheet_tag }}
+    
+    <!-- Shop Page Styles -->
+    {% if template contains 'page.shop' %}
+      {{ 'shop.css' | asset_url | stylesheet_tag }}
+    {% endif %}
 
     <!-- Base Styles -->
     <style>

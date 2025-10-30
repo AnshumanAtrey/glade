@@ -51,11 +51,10 @@
     "carousel": {
       "type": "carousel",
       "settings": {
-        "carousel_title": "FEATURED PRODUCTS",
-        "carousel_subtitle": "Discover our curated selection of premium pieces designed for the modern lifestyle.",
-        "collection": "",
-        "products_limit": 6,
-        "view_all_url": "/collections/all",
+        "carousel_title": "LATEST PRODUCTS",
+        "carousel_subtitle": "Discover our newest arrivals and latest drops.",
+        "products_limit": 8,
+        "view_all_url": "/pages/shop",
         "enable_autoplay": true,
         "autoplay_speed": 5
       }
