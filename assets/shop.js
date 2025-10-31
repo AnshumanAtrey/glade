@@ -349,4 +349,4 @@ if (typeof gsap !== 'undefined') {
 }
 
 // Export for potential external use
-window.ShopPage = ShopPage;
+window

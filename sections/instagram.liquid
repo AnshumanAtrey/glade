@@ -33,25 +33,51 @@
         {% endif %}
       {% endfor %}
       
-      {% comment %} Always show fallback images with proper infinite scroll {% endcomment %}
-      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=400&fit=crop" alt="Athletic wear photo 1" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=300&h=400&fit=crop" alt="Athletic wear photo 2" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1506629905607-d405b7a82d8c?w=300&h=400&fit=crop" alt="Athletic wear photo 3" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=300&h=400&fit=crop" alt="Athletic wear photo 4" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=400&fit=crop" alt="Athletic wear photo 5" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=300&h=400&fit=crop" alt="Athletic wear photo 6" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1506629905607-d405b7a82d8c?w=300&h=400&fit=crop" alt="Athletic wear photo 7" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=300&h=400&fit=crop" alt="Athletic wear photo 8" loading="lazy">
-      
-      {% comment %} Duplicate for seamless infinite loop {% endcomment %}
-      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=400&fit=crop" alt="Athletic wear photo 1" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=300&h=400&fit=crop" alt="Athletic wear photo 2" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1506629905607-d405b7a82d8c?w=300&h=400&fit=crop" alt="Athletic wear photo 3" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=300&h=400&fit=crop" alt="Athletic wear photo 4" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=400&fit=crop" alt="Athletic wear photo 5" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=300&h=400&fit=crop" alt="Athletic wear photo 6" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1506629905607-d405b7a82d8c?w=300&h=400&fit=crop" alt="Athletic wear photo 7" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=300&h=400&fit=crop" alt="Athletic wear photo 8" loading="lazy">
+      {% if has_images %}
+        {% comment %} Show Shopify uploaded images {% endcomment %}
+        {% for block in section.blocks %}
+          {% if block.settings.image != blank %}
+            <img 
+              src="{{ block.settings.image | image_url: width: 300, height: 400, crop: 'center' }}" 
+              alt="{{ block.settings.alt_text | default: block.settings.image.alt | default: 'Instagram photo' }}" 
+              width="300" 
+              height="400" 
+              loading="lazy">
+          {% endif %}
+        {% endfor %}
+        
+        {% comment %} Duplicate images for seamless infinite loop {% endcomment %}
+        {% for block in section.blocks %}
+          {% if block.settings.image != blank %}
+            <img 
+              src="{{ block.settings.image | image_url: width: 300, height: 400, crop: 'center' }}" 
+              alt="{{ block.settings.alt_text | default: block.settings.image.alt | default: 'Instagram photo' }}" 
+              width="300" 
+              height="400" 
+              loading="lazy">
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {% comment %} Fallback images when no images are uploaded {% endcomment %}
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=400&fit=crop" alt="Athletic wear photo 1" width="300" height="400" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=300&h=400&fit=crop" alt="Athletic wear photo 2" width="300" height="400" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1506629905607-d405b7a82d8c?w=300&h=400&fit=crop" alt="Athletic wear photo 3" width="300" height="400" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=300&h=400&fit=crop" alt="Athletic wear photo 4" width="300" height="400" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=400&fit=crop" alt="Athletic wear photo 5" width="300" height="400" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=300&h=400&fit=crop" alt="Athletic wear photo 6" width="300" height="400" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1506629905607-d405b7a82d8c?w=300&h=400&fit=crop" alt="Athletic wear photo 7" width="300" height="400" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=300&h=400&fit=crop" alt="Athletic wear photo 8" width="300" height="400" loading="lazy">
+        
+        {% comment %} Duplicate for seamless infinite loop {% endcomment %}
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=400&fit=crop" alt="Athletic wear photo 1" width="300" height="400" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=300&h=400&fit=crop" alt="Athletic wear photo 2" width="300" height="400" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1506629905607-d405b7a82d8c?w=300&h=400&fit=crop" alt="Athletic wear photo 3" width="300" height="400" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=300&h=400&fit=crop" alt="Athletic wear photo 4" width="300" height="400" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=400&fit=crop" alt="Athletic wear photo 5" width="300" height="400" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=300&h=400&fit=crop" alt="Athletic wear photo 6" width="300" height="400" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1506629905607-d405b7a82d8c?w=300&h=400&fit=crop" alt="Athletic wear photo 7" width="300" height="400" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=300&h=400&fit=crop" alt="Athletic wear photo 8" width="300" height="400" loading="lazy">
+      {% endif %}
     </div>
   </div>
 </section>
